@@ -231,7 +231,7 @@ class metaboxProjects {
         /* OK, it's safe for us to save the data now. */
  
         // Sanitize the user input.
-        $latitude = sanitize_text_field( $_POST['cpm_latitue'] );
+        $latitude = sanitize_text_field( $_POST['cpm_latitude'] );
 		$longitude = sanitize_text_field( $_POST['cpm_longitude'] );
  
         // Update the meta field.
@@ -251,8 +251,8 @@ class metaboxProjects {
         wp_nonce_field( 'cpm_project_inner_custom_box', 'cpm_project_inner_custom_box_nonce' );
  
         // Use get_post_meta to retrieve an existing value from the database.
-        $value_latitude = get_post_meta( $post->ID, '_cpm_latitude', true );
-		$value_longitude = get_post_meta( $post->ID, '_cpm_longitude', true );
+        $value_latitude = get_post_meta( $post->ID, '_cpm_project_latitude', true );
+		$value_longitude = get_post_meta( $post->ID, '_cpm_project_longitude', true );
  
         // Display the form, using the current value.
         ?>
