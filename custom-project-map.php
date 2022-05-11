@@ -103,7 +103,7 @@ function cpm_create_taxonomies() {
         'menu_name'         => __( 'Typen' ),
     );
     register_taxonomy(
-        'color',
+        'typ',
         'project',
         array(
             'hierarchical' => true,
@@ -131,6 +131,33 @@ function cpm_create_taxonomies() {
         )
     );
 }
+
+// POST LIST VIEW
+
+add_filter( 'manage_map_posts_columns', 'cpm_map_columns' );
+function cpm_map_columns( $columns ) {
+    $columns = array(
+        'cb' => $columns['cb'],
+        'title' => __( 'Title' ),
+        'shortcode' => __( 'Shortcode', 'cpm' ),
+        'date' => __( 'Date' )
+      );
+    
+  return $columns;
+}
+
+
+ add_action( 'manage_map_posts_custom_column', 'cpm_map_column', 10, 2);
+function cpm_map_column( $column, $post_id ) {
+  // Shortcode column
+  if ( $column == 'shortcode' ) {
+      $map_shortcode = "[cpm_map id=&#34;" . $post_id . "&#34;]";
+    echo $map_shortcode;
+  }
+} 
+  
+
+
 
 // SETTINGS PAGE
 
@@ -460,17 +487,22 @@ class metaboxMaps
 // SHORTCODES
 
 // function that runs when shortcode is called
-function cpm_map_shortcode()
+function cpm_map_shortcode($attr)
 {
 
+    $args = shortcode_atts( array(
+     
+        'id' => '0'
+
+    ), $attr );
     // Things that you want to do.
-    $message = 'Hello world!';
+    $message = "<p>hier kommt die id: " . $args['id'];
 
     // Output needs to be return
     return $message;
 }
 // register shortcode
-add_shortcode('map', 'cpm_map_shortcode');
+add_shortcode('cpm_map', 'cpm_map_shortcode');
 
 // GENERATE GEOJSON
 function generatejson()
@@ -494,6 +526,8 @@ function generatejson()
  
     foreach ($locations as $location) {
 
+        $location_taxTyp_list = get_the_terms( $location->ID, 'typ' );
+        $location_taxThema_list = get_the_terms( $location->ID, 'thema' );
 
         $locationid = $location->ID;
         $locationtitle = $location->post_title;
@@ -517,6 +551,8 @@ function generatejson()
         $propertiesObj["id"] = $locationid;
         $propertiesObj["title"] = $locationtitle;
         $propertiesObj["description"] = $locationcontent;
+        $propertiesObj["typ"] = $location_taxTyp_list;
+        $propertiesObj["thema"] = $location_taxThema_list;
         $locationObj["properties"] = $propertiesObj;
 
         $collectionObj[] = $locationObj;
