@@ -4,8 +4,12 @@
         'id' => '0'
 
     ), $attr );
+
     // Things that you want to do.
-    $message = "<p>hier kommt die id: " . $args['id'];
+
+    $message = "<div class='map-container'";
+
+    $message .= "</div>";
 
     // Output needs to be return
     return $message;
