@@ -8,8 +8,7 @@
             container: 'map',
             style: 'mapbox://styles/knick/ck99xe0930rg91iobpck77l5o',
             center: [12.467, 52.281],
-            zoom: 6,
-			minZoom: 5.5
+            zoom: 6
 		});
 		var nav = new mapboxgl.NavigationControl({
 			showCompass: false

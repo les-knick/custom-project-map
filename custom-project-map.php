@@ -14,11 +14,12 @@ Domain Path:  /languages
 
 set_include_path(WP_PLUGIN_DIR . "/custom-project-map/library");
 
-function cpm_enqueue_styles() {
-wp_enqueue_style( 'lea_css',  plugins_url( '/assets/css/styles.css', __FILE__ ));
+function cpm_enqueue_styles()
+{
+    wp_enqueue_style('lea_css',  plugins_url('/assets/css/styles.css', __FILE__));
 }
 
-add_action( 'wp_enqueue_scripts', 'cpm_enqueue_styles' );
+add_action('wp_enqueue_scripts', 'cpm_enqueue_styles');
 
 //register two cpts
 add_action('init', 'cpm_register_my_cpts');
@@ -114,25 +115,55 @@ function cpm_map_shortcode($attr)
         'id' => '0'
 
     ), $attr);
- 
-    $map_styleUrl = get_post_meta( $args['id'], '_cpm_map_style-url', true );
-    $map_accessToken = get_post_meta( $args['id'], '_cpm_map_access-token', true );
+
+    $map_styleUrl = get_post_meta($args['id'], '_cpm_map_style-url', true);
+    $map_accessToken = get_post_meta($args['id'], '_cpm_map_access-token', true);
+
+    $script_open = " <script> ";
+    $script_close = " </script> ";
 
     $map_libs = "<script src='https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css' rel='stylesheet' />";
 
-    $map_script = "<script>";
-    $map_script .= "mapboxgl.accessToken = '" . $map_accessToken . "'; ";
+    $map_script = "mapboxgl.accessToken = '" . $map_accessToken . "'; ";
     $map_script .= "var map = new mapboxgl.Map({ container: 'map-container', style: '" . $map_styleUrl . "', ";
     $map_script .= "center: [12.467, 52.281], zoom: 6, minZoom: 5.5 });";
-    $map_script .= "var nav = new mapboxgl.NavigationControl({ showCompass: false }); map.addControl(nav, 'bottom-right'); </script>";
+    $map_script .= "var nav = new mapboxgl.NavigationControl({ showCompass: false }); map.addControl(nav, 'bottom-right'); ";
+
+    $getJson_script = "var jsonPath = '" . site_url() . "/wp-content/plugins/custom-project-map/assets/data.geojson'; ";
+    $getJson_script .= "fetch (jsonPath)
+    .then (function (response) {
+        return response.json();
+    }).then (function (data) {
+        geojsonTest = data;
+        addMarkersToMap(geojsonTest);
+    }).catch (function (error) {
+        console.log ('error: ' + error);
+    }); ";
+
+    $addMarkerToMap_script = "function addMarkersToMap(geojson) {";
+    $addMarkerToMap_script .= "geojson.features.forEach(function (marker) {
+        var el = document.createElement('div');
+        el.className = 'marker';";
+
+    $addMarkerToMap_script .= "new mapboxgl.Marker(el)
+        .setLngLat(marker.geometry.coordinates)
+        .setPopup(new mapboxgl.Popup({ offset: 45 })
+        .setHTML('<p>' + marker.properties.description + '</p>'))
+        .addTo(map);";
+    $addMarkerToMap_script .= "}); } ";
+
 
     // Things that you want to do.
 
     $message = $map_libs;
     $message .= "<div id='map-container'>";
     $message .= "</div>";
+    $message .= $script_open;
     $message .= $map_script;
+    $message .= $getJson_script;
+    $message .= $addMarkerToMap_script;
+    $message .= $script_close;
 
     // Output needs to be return
     return $message;
