@@ -114,11 +114,25 @@ function cpm_map_shortcode($attr)
         'id' => '0'
 
     ), $attr);
-    // Things that you want to do.
-    
-    $message = "<div class='map-container'>";
+ 
+    $map_styleUrl = get_post_meta( $args['id'], '_cpm_map_style-url', true );
+    $map_accessToken = get_post_meta( $args['id'], '_cpm_map_access-token', true );
 
+    $map_libs = "<script src='https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css' rel='stylesheet' />";
+
+    $map_script = "<script>";
+    $map_script .= "mapboxgl.accessToken = '" . $map_accessToken . "'; ";
+    $map_script .= "var map = new mapboxgl.Map({ container: 'map-container', style: '" . $map_styleUrl . "', ";
+    $map_script .= "center: [12.467, 52.281], zoom: 6, minZoom: 5.5 });";
+    $map_script .= "var nav = new mapboxgl.NavigationControl({ showCompass: false }); map.addControl(nav, 'bottom-right'); </script>";
+
+    // Things that you want to do.
+
+    $message = $map_libs;
+    $message .= "<div id='map-container'>";
     $message .= "</div>";
+    $message .= $map_script;
 
     // Output needs to be return
     return $message;
