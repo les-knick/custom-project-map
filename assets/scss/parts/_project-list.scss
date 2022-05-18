@@ -1,0 +1,21 @@
+#project-list-container {
+    position: fixed;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: white;
+    z-index: 999999999;
+    padding: 0 40px;
+    @media only screen and (max-width: $breakpoint-m-width) {
+        width: 100vw;
+    }
+    @media only screen and (min-width: $breakpoint-m-width) {
+        width: 50vw;
+    }
+    @media only screen and (min-width: $breakpoint-l-width) {
+        width: 40vw;
+    }
+    @media only screen and (min-width: $breakpoint-xl-width) {
+        width: 30vw;
+    }
+}

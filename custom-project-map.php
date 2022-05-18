@@ -122,12 +122,16 @@ function cpm_map_shortcode($attr)
     $script_open = " <script> ";
     $script_close = " </script> ";
 
+    $custom_logo_id = get_theme_mod( 'custom_logo' );
+    $logo = wp_get_attachment_image_src( $custom_logo_id , 'full' );
+    $logo_url = esc_url($logo[0]);
+
     $map_libs = "<script src='https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css' rel='stylesheet' />";
 
     $map_script = "mapboxgl.accessToken = '" . $map_accessToken . "'; ";
     $map_script .= "var map = new mapboxgl.Map({ container: 'map-container', style: '" . $map_styleUrl . "', ";
-    $map_script .= "center: [12.467, 52.281], zoom: 6, minZoom: 5.5 });";
+    $map_script .= "center: [12.467, 52.281], zoom: 6 });";
     $map_script .= "var nav = new mapboxgl.NavigationControl({ showCompass: false }); map.addControl(nav, 'bottom-right'); ";
 
     $getJson_script = "var jsonPath = '" . site_url() . "/wp-content/plugins/custom-project-map/assets/data.geojson'; ";
@@ -157,8 +161,14 @@ function cpm_map_shortcode($attr)
     // Things that you want to do.
 
     $message = $map_libs;
-    $message .= "<div id='map-container'>";
-    $message .= "</div>";
+    $message .= "<div id='map-container'></div>";
+    $message .= "<div id='project-list-container'>
+    <div class='project-list-container__head'>
+    <a class='project-list-container__head__logo'><img src='" . $logo_url . "'></a>
+    </div>
+    <div class='project-list-container__body'>
+    </div>
+    </div>";
     $message .= $script_open;
     $message .= $map_script;
     $message .= $getJson_script;
