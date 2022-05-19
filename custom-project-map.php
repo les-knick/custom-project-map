@@ -157,18 +157,70 @@ function cpm_map_shortcode($attr)
         .addTo(map);";
     $addMarkerToMap_script .= "}); } ";
 
+    $get_terms_types = get_terms([
+        'taxonomy' => 'typ',
+        'hide_empty' => true,
+    ]);
+
+    $display_types_script = '';
+
+    foreach($get_terms_types as $terms_type){
+        $display_types_script .= "<label><input type='radio' name='typefilter' value='" . $terms_type->id . "'>" . $terms_type->name . "</label>";
+    }
+
+    $get_terms_themes = get_terms([
+        'taxonomy' => 'thema',
+        'hide_empty' => true,
+    ]);
+
+    $display_themes_script = '';
+
+    foreach($get_terms_themes as $terms_theme){
+        $display_themes_script .= "<label><input type='checkbox' name='themefilter[]' value='" . $terms_theme->id . "'>" . $terms_theme->name . "</label>";
+    }
+
+    $display_posts_script = '';
+
+$args = array(
+ 'post_type' => 'project',
+ 'orderby' => 'title',
+ 'order' => 'ASC'
+);
+
+$custom_query = new WP_Query($args); 
+
+if ($custom_query->have_posts()) : while($custom_query->have_posts()) : $custom_query->the_post();  
+require "render_projects.php";
+endwhile;
+else :
+$display_posts_script .= "<p>Keine Beiträge</p>";
+endif;
+ wp_reset_postdata(); 
+
+    $list_script = "<div id='project-list-container'>
+    <div class='project-list-container__head'>
+    <a class='project-list-container__head__logo'><img src='" . $logo_url . "'></a>
+    </div>
+    <div class='project-list-container__body'>
+    <h1 class='project-list-container__body__headline'>Interaktive Projektkarte</h1>
+    <div class='project-list-container__body--filter'>
+    <h2 class='project-list-container__body__headline project-list-container__body__headline--with-line'>Filter</h2>
+    <form class='project-list-container__body--filter__form'>
+    <h3 class='project-list-container__body__headline'>Förderungen</h3>" . $display_types_script . 
+    "<h3 class='project-list-container__body__headline'>Themen</h3>" . $display_themes_script . 
+    "</form>
+    </div>
+    <div class='project-list-container__body--projects'>
+    <h2 class='project-list-container__body__headline project-list-container__body__headline--with-line'>Projekte</h2>" . $display_posts_script . 
+    "</div>
+    </div>
+    </div>";
 
     // Things that you want to do.
 
     $message = $map_libs;
     $message .= "<div id='map-container'></div>";
-    $message .= "<div id='project-list-container'>
-    <div class='project-list-container__head'>
-    <a class='project-list-container__head__logo'><img src='" . $logo_url . "'></a>
-    </div>
-    <div class='project-list-container__body'>
-    </div>
-    </div>";
+    $message .= $list_script;
     $message .= $script_open;
     $message .= $map_script;
     $message .= $getJson_script;
