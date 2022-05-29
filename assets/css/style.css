@@ -1,0 +1,127 @@
+#map-container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 10000; }
+
+.marker {
+  width: 40px;
+  height: 67px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain; }
+  .marker--blau--digitalisierung {
+    background-image: url(../img/icons_blau/icon_digitalisierung_blau.svg); }
+  .marker--blau--forschung {
+    background-image: url(../img/icons_blau/icon_forschung_blau.svg); }
+  .marker--blau--klimaschutz {
+    background-image: url(../img/icons_blau/icon_klimaschutz_blau.svg); }
+  .marker--blau--landschaftspflege {
+    background-image: url(../img/icons_blau/icon_landschaftspflege_blau.svg); }
+  .marker--blau--fuersorge {
+    background-image: url(../img/icons_blau/icon_oeffentliche-fuersorge_blau.svg); }
+  .marker--blau--staedtebau {
+    background-image: url(../img/icons_blau/icon_staedtebau_blau.svg); }
+  .marker--blau--tourismus {
+    background-image: url(../img/icons_blau/icon_touristische-infrastruktur_blau.svg); }
+  .marker--blau--verkehr {
+    background-image: url(../img/icons_blau/icon_verkehr_blau.svg); }
+  .marker--blau--wirtschaft {
+    background-image: url(../img/icons_blau/icon_touristische-infrastruktur_blau.svg); }
+  .marker--pink--digitalisierung {
+    background-image: url(../img/icons_pink/icon_digitalisierung.svg); }
+  .marker--pink--forschung {
+    background-image: url(../img/icons_pink/icon_forschung.svg); }
+  .marker--pink--klimaschutz {
+    background-image: url(../img/icons_pink/icon_klimaschutz.svg); }
+  .marker--pink--landschaftspflege {
+    background-image: url(../img/icons_pink/icon_landschaftspflege.svg); }
+  .marker--pink--fuersorge {
+    background-image: url(../img/icons_pink/icon_oeffentliche-fuersorge.svg); }
+  .marker--pink--staedtebau {
+    background-image: url(../img/icons_pink/icon_staedtebau.svg); }
+  .marker--pink--tourismus {
+    background-image: url(../img/icons_pink/icon_touristische-infrastruktur.svg); }
+  .marker--pink--verkehr {
+    background-image: url(../img/icons_pink/icon_verkehr.svg); }
+  .marker--pink--wirtschaft {
+    background-image: url(../img/icons_pink/icon_touristische_infrastruktur.svg); }
+  .marker--active {
+    width: 52px;
+    height: 87px; }
+
+#project-list-container {
+  position: fixed;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: white;
+  z-index: 999999999;
+  padding: 0 40px;
+  overflow-y: scroll; }
+  #project-list-container .project-list-container__head {
+    padding: 30px 0; }
+    #project-list-container .project-list-container__head .project-list-container__head__logo {
+      display: block;
+      width: 18%; }
+  #project-list-container .project-list-container__body h1.project-list-container__body__headline {
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    color: #233787; }
+  #project-list-container .project-list-container__body h2.project-list-container__body__headline {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #FF2D64; }
+    #project-list-container .project-list-container__body h2.project-list-container__body__headline--with-line {
+      width: calc(100% + 40px);
+      border-bottom: 1px solid #FF2D64; }
+  #project-list-container .project-list-container__body h3.project-list-container__body__headline {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color: #233787; }
+  @media only screen and (max-width: 800px) {
+    #project-list-container {
+      width: 100vw; } }
+  @media only screen and (min-width: 800px) {
+    #project-list-container {
+      width: 50vw; } }
+  @media only screen and (min-width: 1280px) {
+    #project-list-container {
+      width: 40vw; } }
+  @media only screen and (min-width: 1920px) {
+    #project-list-container {
+      width: 30vw; } }
+
+.project-content {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 30vw;
+  overflow: scroll;
+  height: 100vh;
+  background-color: white; }
+  .project-content--disabled {
+    display: none; }
+  @media only screen and (max-width: 800px) {
+    .project-content {
+      width: 100vw; } }
+  @media only screen and (min-width: 800px) {
+    .project-content {
+      width: 50vw; } }
+  @media only screen and (min-width: 1280px) {
+    .project-content {
+      width: 40vw; } }
+  @media only screen and (min-width: 1920px) {
+    .project-content {
+      width: 30vw; } }

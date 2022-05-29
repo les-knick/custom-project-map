@@ -79,10 +79,12 @@ class metaboxProjects
         // Sanitize the user input.
         $latitude = sanitize_text_field($_POST['cpm_latitude']);
         $longitude = sanitize_text_field($_POST['cpm_longitude']);
+        $link = sanitize_text_field($_POST['cpm_link']);
 
         // Update the meta field.
         update_post_meta($post_id, '_cpm_project_latitude', $latitude);
         update_post_meta($post_id, '_cpm_project_longitude', $longitude);
+        update_post_meta($post_id, '_cpm_project_link', $link);
     }
 
 
@@ -100,6 +102,7 @@ class metaboxProjects
         // Use get_post_meta to retrieve an existing value from the database.
         $value_latitude = get_post_meta($post->ID, '_cpm_project_latitude', true);
         $value_longitude = get_post_meta($post->ID, '_cpm_project_longitude', true);
+        $value_link = get_post_meta($post->ID, '_cpm_project_link', true);
 
         // Display the form, using the current value.
 ?>
@@ -112,6 +115,11 @@ class metaboxProjects
             <?php _e('Längengrad', 'textdomain'); ?>
         </label>
         <input type="text" id="cpm_longitude" name="cpm_longitude" value="<?php echo esc_attr($value_longitude); ?>" size="30" />
+        <br><br>
+        <label for="cpm_link">
+            <?php _e('Link zur Seite', 'textdomain'); ?>
+        </label>
+        <input type="text" id="cpm_link" name="cpm_link" value="<?php echo esc_attr($value_link); ?>" size="30" />
 <?php
     }
 }

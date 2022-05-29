@@ -16,10 +16,17 @@ set_include_path(WP_PLUGIN_DIR . "/custom-project-map/library");
 
 function cpm_enqueue_styles()
 {
-    wp_enqueue_style('lea_css',  plugins_url('/assets/css/styles.css', __FILE__));
+    wp_enqueue_style('lea_css',  plugins_url('/assets/css/style.css', __FILE__));
 }
 
 add_action('wp_enqueue_scripts', 'cpm_enqueue_styles');
+
+function cpm_enqueue_scripts()
+{
+    wp_enqueue_script('lea_events',  plugins_url('/assets/js/events.js', __FILE__));
+}
+
+add_action('wp_enqueue_scripts', 'cpm_enqueue_scripts');
 
 //register two cpts
 add_action('init', 'cpm_register_my_cpts');
@@ -148,12 +155,49 @@ function cpm_map_shortcode($attr)
     $addMarkerToMap_script = "function addMarkersToMap(geojson) {";
     $addMarkerToMap_script .= "geojson.features.forEach(function (marker) {
         var el = document.createElement('div');
-        el.className = 'marker';";
+        var element_class = 'marker marker';
+        var element_id = marker.properties.id;
+        var element_type = marker.properties.typ[0][0].name;
+        var element_theme = marker.properties.thema[0][0].name;
+        el.dataset.id = element_id;
+        if(element_type == 'Landesprojekt'){
+            element_class += '--blau';
+        }
+        else{
+            element_class += '--pink';
+        }
+        if(element_theme == 'Digitalisierung, Breitband- und Mobilfunkinfrastruktur'){
+            element_class += '--digitalisierung';
+        }
+        else if(element_theme == 'Infrastrukturen für Forschung, Innovation, Technologietransfer'){
+            element_class += '--forschung';
+        }
+        else if(element_theme == 'Klima- und Umweltschutz'){
+            element_class += '--klimaschutz';
+        }
+        else if(element_theme == 'Naturschutz und Landschaftspflege'){
+            element_class += '--landschaftspflege';
+        }
+        else if(element_theme == 'Öffentliche Fürsorge'){
+            element_class += '--fuersorge';
+        }
+        else if(element_theme == 'Städtebau, Stadt- und Regionalentwicklung'){
+            element_class += '--staedtebau';
+        }
+        else if(element_theme == 'Touristische Infrastruktur'){
+            element_class += '--tourismus';
+        }
+        else if(element_theme == 'Verkehr'){
+            element_class += '--verkehr';
+        }
+        else if(element_theme == 'Wirtschaftsnahe Infrastruktur'){
+            element_class += '--wirtschaft';
+        }
+        el.className = element_class;
+         ";
 
     $addMarkerToMap_script .= "new mapboxgl.Marker(el)
         .setLngLat(marker.geometry.coordinates)
-        .setPopup(new mapboxgl.Popup({ offset: 45 })
-        .setHTML('<p>' + marker.properties.description + '</p>'))
         .addTo(map);";
     $addMarkerToMap_script .= "}); } ";
 
@@ -216,6 +260,12 @@ endif;
     </div>
     </div>";
 
+    $events_script = "const list_items = document.querySelectorAll('.project-list-item');
+    list_items.forEach(function(list_item){
+        list_item.addEventListener('click', toggleActiveState)
+      });";
+
+
     // Things that you want to do.
 
     $message = $map_libs;
@@ -225,6 +275,9 @@ endif;
     $message .= $map_script;
     $message .= $getJson_script;
     $message .= $addMarkerToMap_script;
+    $message .= $script_close;
+    $message .= $script_open;
+    $message .= $events_script;
     $message .= $script_close;
 
     // Output needs to be return
