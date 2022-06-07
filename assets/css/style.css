@@ -11,6 +11,7 @@
 .marker {
   width: 40px;
   height: 67px;
+  display: block;
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain; }
@@ -53,6 +54,8 @@
   .marker--active {
     width: 52px;
     height: 87px; }
+  .marker--hidden {
+    display: none !important; }
 
 #project-list-container {
   position: fixed;

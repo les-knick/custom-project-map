@@ -14,3 +14,22 @@ function toggleActiveStateList(element) {
     element.classList.toggle('marker--active');
     content.classList.toggle('project-content--disabled');
 }
+
+function filterMarker() {
+    var markers = document.querySelectorAll('.marker');
+    var listItems = document.querySelectorAll('.project-list-item');
+    markers.forEach(function(marker) {
+        marker.classList.remove('marker--hidden');
+        var markerID = marker.dataset.id;
+        var inArray = false;
+        listItems.forEach(function(listItem) {
+            var listItemID = listItem.dataset.id;
+            if (markerID == listItemID) {
+                inArray = true;
+            }
+        });
+        if (inArray == false) {
+            marker.classList.add('marker--hidden');
+        }
+    });
+}

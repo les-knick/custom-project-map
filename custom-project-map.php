@@ -378,10 +378,14 @@ function misha_filter_function()
                 endwhile;
             else : ?>
                 <p>Keine Beiträge</p>
-                <p><?php var_dump($_POST['themefilter']) ?></p>
             <?php endif;
             wp_reset_postdata();
             $result = '';
             $filter_args = '';
+            ?>
+            <script>
+                filterMarker();
+            </script>
+            <?php
     die();
 }
