@@ -4,8 +4,8 @@
     top: 0;
     left: 0;
     width: 30vw;
-    overflow: scroll;
     height: 100vh;
+    overflow: scroll;
     background-color: white;
     &--disabled {
         display: none;
@@ -22,4 +22,12 @@
     @media only screen and (min-width: $breakpoint-xl-width) {
         width: 30vw;
     }
+    .project-content__container {
+        padding: 40px;
+    }
+}
+
+.side-padding-40 {
+    padding-left: 40px!important;
+    padding-right: 40px!important;
 }

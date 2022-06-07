@@ -13,14 +13,19 @@ $display_posts_script .= "<div class='project-list-container__body--projects__it
 $display_posts_script .= "<h3>" . $project_title . "</h3>";
 $display_posts_script .= "<div class='project-list-container__body--projects__item__arrow'></div>
 <div class='project-content project-content--disabled project-list-container__body--projects__item__content'>
+<div class='project-list-container__head side-padding-40'>
+<a class='project-list-container__head__logo'><img src='" . $logo_url . "'></a>
+</div>
 <div class='project-content__img-wrapper'>";
 if ( has_post_thumbnail( $project_id ) ) {
     $display_posts_script .= get_the_post_thumbnail( $project_id, 'thumbnail' );
 }
 $display_posts_script .= "</div>
+<div class='project-content__container'>
 <h1 class='cmp-h1'>" . $project_title . "</h1>
 <p>" . get_post_field('post_content', $project_id) . "</p>
 <a href='" . $project_link . "'>Mehr Erfahren</a>
+</div>
 </div>
 </div>";
 ?>

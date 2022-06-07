@@ -132,6 +132,7 @@ function cpm_map_shortcode($attr)
     $custom_logo_id = get_theme_mod( 'custom_logo' );
     $logo = wp_get_attachment_image_src( $custom_logo_id , 'full' );
     $logo_url = esc_url($logo[0]);
+    $home_url = get_home_url();
 
     $map_libs = "<script src='https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css' rel='stylesheet' />";
@@ -194,11 +195,16 @@ function cpm_map_shortcode($attr)
             element_class += '--wirtschaft';
         }
         el.className = element_class;
+        el.addEventListener('click', function(){
+            console.log('element event listener');
+            toggleActiveStateList(this);
+            })
          ";
 
     $addMarkerToMap_script .= "new mapboxgl.Marker(el)
         .setLngLat(marker.geometry.coordinates)
-        .addTo(map);";
+        .addTo(map);
+        ";
     $addMarkerToMap_script .= "}); } ";
 
     $get_terms_types = get_terms([
@@ -207,9 +213,9 @@ function cpm_map_shortcode($attr)
     ]);
 
     $display_types_script = '';
-
+    $display_types_script .= "<label><input type='radio' name='typefilter' value='all'>Alle</label>";
     foreach($get_terms_types as $terms_type){
-        $display_types_script .= "<label><input type='radio' name='typefilter' value='" . $terms_type->id . "'>" . $terms_type->name . "</label>";
+        $display_types_script .= "<label><input type='radio' name='typefilter' value='" . $terms_type->term_id . "'>" . $terms_type->name . "</label>";
     }
 
     $get_terms_themes = get_terms([
@@ -220,10 +226,39 @@ function cpm_map_shortcode($attr)
     $display_themes_script = '';
 
     foreach($get_terms_themes as $terms_theme){
-        $display_themes_script .= "<label><input type='checkbox' name='themefilter[]' value='" . $terms_theme->id . "'>" . $terms_theme->name . "</label>";
+        $display_themes_script .= "<label><input type='checkbox' name='themefilter[]' value='" . $terms_theme->term_id . "'>" . $terms_theme->name . "</label>";
     }
 
     $display_posts_script = '';
+
+    $filter_script = "jQuery(function($) {
+        $('input[type=";
+        $filter_script .= '"radio"]';
+        $filter_script .= "').click(function() {
+                $('#filter').submit();
+        });";
+
+        $filter_script .= "$('input[type=";
+            $filter_script .= '"checkbox"]';
+            $filter_script .= "').click(function() {
+                    $('#filter').submit();
+            });";
+
+        $filter_script .= "$('#filter').submit(function() {
+            var form = $('#filter');
+            $.ajax({
+                url: form.attr('action'),
+                data: form.serialize(), // form data
+                type: form.attr('method'), // POST
+                beforeSend: function(xhr) {
+                },
+                success: function(data) { // changing the button label back
+                    $('#response').html(data); // insert data
+                }
+            });
+            return false;
+        });
+    });";
 
 $args = array(
  'post_type' => 'project',
@@ -249,21 +284,25 @@ endif;
     <h1 class='project-list-container__body__headline'>Interaktive Projektkarte</h1>
     <div class='project-list-container__body--filter'>
     <h2 class='project-list-container__body__headline project-list-container__body__headline--with-line'>Filter</h2>
-    <form class='project-list-container__body--filter__form'>
+    <form action='" . $home_url . "/wp-admin/admin-ajax.php' method='POST' id='filter' class='project-list-container__body--filter__form'>
     <h3 class='project-list-container__body__headline'>Förderungen</h3>" . $display_types_script . 
     "<h3 class='project-list-container__body__headline'>Themen</h3>" . $display_themes_script . 
-    "</form>
+    "<input type='hidden' name='action' value='myfilter'>
+    <button style='display: none;'>Filter</button>
+    </form>
     </div>
     <div class='project-list-container__body--projects'>
-    <h2 class='project-list-container__body__headline project-list-container__body__headline--with-line'>Projekte</h2>" . $display_posts_script . 
+    <h2 class='project-list-container__body__headline project-list-container__body__headline--with-line'>Projekte</h2><div id='response'>" . $display_posts_script . 
     "</div>
+    </div>
     </div>
     </div>";
 
     $events_script = "const list_items = document.querySelectorAll('.project-list-item');
     list_items.forEach(function(list_item){
-        list_item.addEventListener('click', toggleActiveState)
-      });";
+        list_item.addEventListener('click', toggleActiveState);
+      });
+      ";
 
 
     // Things that you want to do.
@@ -278,6 +317,7 @@ endif;
     $message .= $script_close;
     $message .= $script_open;
     $message .= $events_script;
+    $message .= $filter_script;
     $message .= $script_close;
 
     // Output needs to be return
@@ -294,3 +334,54 @@ function generatejson()
 
 // This is the action function that outputs the function above into the theme hook under the logo
 add_action('save_post_project', 'generatejson', 999);
+
+//FILTER FUNCTION
+add_action('wp_ajax_myfilter', 'misha_filter_function'); // wp_ajax_{ACTION HERE} 
+add_action('wp_ajax_nopriv_myfilter', 'misha_filter_function');
+
+function misha_filter_function()
+{
+    $result = array();
+
+    // for categories
+   
+        $filter_args =  array(
+            'post_type'   => 'project',
+            'tax_query' => array()
+            );
+
+               if (isset($_POST['typefilter'])) {
+                $result['type'] = $_POST['typefilter'];
+                if($result['type'] != 'all'){
+                $filter_args['tax_query'][0] = array(
+                            'taxonomy' => 'typ',   // taxonomy name
+                            'field' => 'term_id',           // term_id, slug or name
+                            'terms' => $result['type']                  // term id, term slug or term name
+                );
+            }
+            }
+            if (isset($_POST['themefilter'])) {
+                $result['theme'] = $_POST['themefilter'];
+                $filter_args['tax_query'][1] = array(
+                    'taxonomy' => 'thema',   // taxonomy name
+                    'field' => 'term_id',           // term_id, slug or name
+                    'terms' => $result['theme'],                  // term id, term slug or term name
+                );
+            }
+
+        $result_query = new WP_Query($filter_args);
+
+            if ($result_query->have_posts()) : while ($result_query->have_posts()) : $result_query->the_post();
+                    include "render_projects.php";
+                    echo $display_posts_script;
+                    $display_posts_script = '';
+                endwhile;
+            else : ?>
+                <p>Keine Beiträge</p>
+                <p><?php var_dump($_POST['themefilter']) ?></p>
+            <?php endif;
+            wp_reset_postdata();
+            $result = '';
+            $filter_args = '';
+    die();
+}
