@@ -22,12 +22,13 @@
     @media only screen and (min-width: $breakpoint-xl-width) {
         width: 30vw;
     }
+    .project-content__img-wrapper {
+        img {
+            max-height: 50vh;
+            object-fit: cover;
+        }
+    }
     .project-content__container {
         padding: 40px;
     }
-}
-
-.side-padding-40 {
-    padding-left: 40px!important;
-    padding-right: 40px!important;
 }

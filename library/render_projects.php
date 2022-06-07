@@ -1,15 +1,62 @@
 <?php
 $project_title = get_the_title();
 $project_id = get_the_ID();
-$project_link = get_post_meta(get_the_ID(), '_cpm_project_link', true);
-$project_types[] = get_the_terms(get_the_ID(), 'typ');
-foreach ( $project_types as $project_type ) {
-    $project_type_id = $project_type->ID;
+$project_link = get_post_meta($project_id, '_cpm_project_link', true);
+$project_types = 0;
+$project_types = get_the_terms($project_id, 'typ');
+$project_type = $project_types[0];
+$project_type = $project_type->name;
+$project_themes = 0;
+$project_themes = get_the_terms($project_id, 'thema');
+$project_theme = $project_themes[0];
+$project_theme = $project_theme->name;
+$custom_logo_id = get_theme_mod( 'custom_logo' );
+$logo = wp_get_attachment_image_src( $custom_logo_id , 'full' );
+$logo_url = esc_url($logo[0]);
+$home_url = get_home_url();
+
+$item_marker_class = 0;
+$item_marker_class = "project-list-container__body--projects__item__marker";
+
+if($project_type == 'Landesprojekt'){
+    $item_marker_class .= '--blau';
+}
+else if($project_type == 'Kommunalprojekt'){
+    $item_marker_class .= '--pink';
+}
+if($project_theme == 'Digitalisierung, Breitband- und Mobilfunkinfrastruktur'){
+    $item_marker_class .= '--digitalisierung';
+}
+else if($project_theme == 'Infrastrukturen für Forschung, Innovation, Technologietransfer'){
+    $item_marker_class .= '--forschung';
+}
+else if($project_theme == 'Klima- und Umweltschutz'){
+    $item_marker_class .= '--klimaschutz';
+}
+else if($project_theme == 'Naturschutz und Landschaftspflege'){
+    $item_marker_class .= '--landschaftspflege';
+}
+else if($project_theme == 'Öffentliche Fürsorge'){
+    $item_marker_class .= '--fuersorge';
+}
+else if($project_theme == 'Städtebau, Stadt- und Regionalentwicklung'){
+    $item_marker_class .= '--staedtebau';
+}
+else if($project_theme == 'Touristische Infrastruktur'){
+    $item_marker_class .= '--tourismus';
+}
+else if($project_theme == 'Verkehr'){
+    $item_marker_class .= '--verkehr';
+}
+else if($project_theme == 'Wirtschaftsnahe Infrastruktur'){
+    $item_marker_class .= '--wirtschaft';
 }
 
+$project_theme = 0;
+$project_type = 0;
 
-$display_posts_script .= "<div data-id='" . $project_id . "'class='project-list-item project-list-container__body--projects__item'>";
-$display_posts_script .= "<div class='project-list-container__body--projects__item__marker'></div>";
+$display_posts_script .= "<div data-id='" . $project_id . "'class='project-list-item project-list-container__body--projects__item flex' onclick='toggleActiveState(this)'>";
+$display_posts_script .= "<div class='project-list-container__body--projects__item__marker " . $item_marker_class . "'></div>";
 $display_posts_script .= "<h3>" . $project_title . "</h3>";
 $display_posts_script .= "<div class='project-list-container__body--projects__item__arrow'></div>
 <div class='project-content project-content--disabled project-list-container__body--projects__item__content'>

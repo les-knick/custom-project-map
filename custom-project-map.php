@@ -231,7 +231,8 @@ function cpm_map_shortcode($attr)
 
     $display_posts_script = '';
 
-    $filter_script = "jQuery(function($) {
+    $filter_script = "const list_items_duplicate = 0;
+    jQuery(function($) {
         $('input[type=";
         $filter_script .= '"radio"]';
         $filter_script .= "').click(function() {

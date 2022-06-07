@@ -1,56 +1,130 @@
-#project-list-container {
-    position: fixed;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    background-color: white;
-    z-index: 999999999;
-    padding: 0 40px;
-    overflow-y: scroll;
-    .project-list-container__head {
-        padding: 30px 0;
-        .project-list-container__head__logo {
-            display: block;
-            width: 18%;
-        }
-    }
-    .project-list-container__body {
-        h1.project-list-container__body__headline {
-            font-size: 30px;
-            font-weight: bold;
-            margin-top: 20px;
-            margin-bottom: 30px;
-            color: $color-blue;
-        }
-        h2.project-list-container__body__headline {
-            font-size: 20px;
-            font-weight: bold;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            color: $color-pink;
-            &--with-line {
-                width: calc(100% + 40px);
-                border-bottom: 1px solid $color-pink;
+    #project-list-container {
+        position: fixed;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        background-color: white;
+        z-index: 999999999;
+        padding: 0 40px;
+        overflow-y: scroll;
+        .project-list-container__head {
+            padding: 30px 0;
+            .project-list-container__head__logo {
+                display: block;
+                width: 18%;
             }
         }
-        h3.project-list-container__body__headline {
-            font-size: 18px;
-            font-weight: bold;
-            margin-top: 10px;
-            margin-bottom: 20px;
-            color: $color-blue;
+        .project-list-container__body {
+            .project-list-container__body--projects__item__marker {
+                width: 24px;
+                height: 33px;
+                display: block;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: contain;
+                &--blau {
+                    &--digitalisierung {
+                        background-image: url(../img/icons_blau/icon_digitalisierung_blau.svg);
+                    }
+                    &--forschung {
+                        background-image: url(../img/icons_blau/icon_forschung_blau.svg);
+                    }
+                    &--klimaschutz {
+                        background-image: url(../img/icons_blau/icon_klimaschutz_blau.svg);
+                    }
+                    &--landschaftspflege {
+                        background-image: url(../img/icons_blau/icon_landschaftspflege_blau.svg);
+                    }
+                    &--fuersorge {
+                        background-image: url(../img/icons_blau/icon_oeffentliche-fuersorge_blau.svg);
+                    }
+                    &--staedtebau {
+                        background-image: url(../img/icons_blau/icon_staedtebau_blau.svg);
+                    }
+                    &--tourismus {
+                        background-image: url(../img/icons_blau/icon_touristische-infrastruktur_blau.svg);
+                    }
+                    &--verkehr {
+                        background-image: url(../img/icons_blau/icon_verkehr_blau.svg);
+                    }
+                    &--wirtschaft {
+                        background-image: url(../img/icons_blau/icon_touristische-infrastruktur_blau.svg);
+                    }
+                }
+                &--pink {
+                    &--digitalisierung {
+                        background-image: url(../img/icons_pink/icon_digitalisierung.svg);
+                    }
+                    &--forschung {
+                        background-image: url(../img/icons_pink/icon_forschung.svg);
+                    }
+                    &--klimaschutz {
+                        background-image: url(../img/icons_pink/icon_klimaschutz.svg);
+                    }
+                    &--landschaftspflege {
+                        background-image: url(../img/icons_pink/icon_landschaftspflege.svg);
+                    }
+                    &--fuersorge {
+                        background-image: url(../img/icons_pink/icon_oeffentliche-fuersorge.svg);
+                    }
+                    &--staedtebau {
+                        background-image: url(../img/icons_pink/icon_staedtebau.svg);
+                    }
+                    &--tourismus {
+                        background-image: url(../img/icons_pink/icon_touristische-infrastruktur.svg);
+                    }
+                    &--verkehr {
+                        background-image: url(../img/icons_pink/icon_verkehr.svg);
+                    }
+                    &--wirtschaft {
+                        background-image: url(../img/icons_pink/icon_touristische_infrastruktur.svg);
+                    }
+                }
+            }
+            h1.project-list-container__body__headline {
+                font-size: 30px;
+                font-weight: bold;
+                margin-top: 20px;
+                margin-bottom: 30px;
+                color: $color-blue;
+            }
+            h2.project-list-container__body__headline {
+                font-size: 20px;
+                font-weight: bold;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                color: $color-pink;
+                &--with-line {
+                    width: calc(100% + 40px);
+                    border-bottom: 1px solid $color-pink;
+                }
+            }
+            h3.project-list-container__body__headline {
+                font-size: 18px;
+                font-weight: bold;
+                margin-top: 10px;
+                margin-bottom: 20px;
+                color: $color-blue;
+            }
+            .project-list-container__body--filter__form {
+                label {
+                    display: flex;
+                    input {
+                        margin-right: 10px;
+                    }
+                }
+            }
+        }
+        @media only screen and (max-width: $breakpoint-m-width) {
+            width: 100vw;
+        }
+        @media only screen and (min-width: $breakpoint-m-width) {
+            width: 50vw;
+        }
+        @media only screen and (min-width: $breakpoint-l-width) {
+            width: 40vw;
+        }
+        @media only screen and (min-width: $breakpoint-xl-width) {
+            width: 30vw;
         }
     }
-    @media only screen and (max-width: $breakpoint-m-width) {
-        width: 100vw;
-    }
-    @media only screen and (min-width: $breakpoint-m-width) {
-        width: 50vw;
-    }
-    @media only screen and (min-width: $breakpoint-l-width) {
-        width: 40vw;
-    }
-    @media only screen and (min-width: $breakpoint-xl-width) {
-        width: 30vw;
-    }
-}
