@@ -16,13 +16,18 @@ $logo_url = esc_url($logo[0]);
 $home_url = get_home_url();
 
 $item_marker_class = 0;
+$item_arrow_class = 0;
+
 $item_marker_class = "project-list-container__body--projects__item__marker";
+$item_arrow_class = "project-list-container__body--projects__item__arrow";
 
 if($project_type == 'Landesprojekt'){
     $item_marker_class .= '--blau';
+    $item_arrow_class .= '--blau';
 }
 else if($project_type == 'Kommunalprojekt'){
     $item_marker_class .= '--pink';
+    $item_arrow_class .= '--pink';
 }
 if($project_theme == 'Digitalisierung, Breitband- und Mobilfunkinfrastruktur'){
     $item_marker_class .= '--digitalisierung';
@@ -56,9 +61,9 @@ $project_theme = 0;
 $project_type = 0;
 
 $display_posts_script .= "<div data-id='" . $project_id . "'class='project-list-item project-list-container__body--projects__item flex' onclick='toggleActiveState(this)'>";
-$display_posts_script .= "<div class='project-list-container__body--projects__item__marker " . $item_marker_class . "'></div>";
-$display_posts_script .= "<h3>" . $project_title . "</h3>";
-$display_posts_script .= "<div class='project-list-container__body--projects__item__arrow'></div>
+$display_posts_script .= "<div class='list-item-txt-wrapper flex'><div class='project-list-container__body--projects__item__marker " . $item_marker_class . "'></div>";
+$display_posts_script .= "<h4>" . $project_title . "</h4></div>";
+$display_posts_script .= "<div class='project-list-container__body--projects__item__arrow " . $item_arrow_class . "'></div>
 <div class='project-content project-content--disabled project-list-container__body--projects__item__content'>
 <div class='project-list-container__head side-padding-40'>
 <a class='project-list-container__head__logo'><img src='" . $logo_url . "'></a>

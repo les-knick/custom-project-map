@@ -78,49 +78,76 @@
     #project-list-container .project-list-container__head .project-list-container__head__logo {
       display: block;
       width: 18%; }
-  #project-list-container .project-list-container__body .project-list-container__body--projects__item__marker {
-    width: 24px;
-    height: 33px;
-    display: block;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain; }
-    #project-list-container .project-list-container__body .project-list-container__body--projects__item__marker--blau--digitalisierung {
-      background-image: url(../img/icons_blau/icon_digitalisierung_blau.svg); }
-    #project-list-container .project-list-container__body .project-list-container__body--projects__item__marker--blau--forschung {
-      background-image: url(../img/icons_blau/icon_forschung_blau.svg); }
-    #project-list-container .project-list-container__body .project-list-container__body--projects__item__marker--blau--klimaschutz {
-      background-image: url(../img/icons_blau/icon_klimaschutz_blau.svg); }
-    #project-list-container .project-list-container__body .project-list-container__body--projects__item__marker--blau--landschaftspflege {
-      background-image: url(../img/icons_blau/icon_landschaftspflege_blau.svg); }
-    #project-list-container .project-list-container__body .project-list-container__body--projects__item__marker--blau--fuersorge {
-      background-image: url(../img/icons_blau/icon_oeffentliche-fuersorge_blau.svg); }
-    #project-list-container .project-list-container__body .project-list-container__body--projects__item__marker--blau--staedtebau {
-      background-image: url(../img/icons_blau/icon_staedtebau_blau.svg); }
-    #project-list-container .project-list-container__body .project-list-container__body--projects__item__marker--blau--tourismus {
-      background-image: url(../img/icons_blau/icon_touristische-infrastruktur_blau.svg); }
-    #project-list-container .project-list-container__body .project-list-container__body--projects__item__marker--blau--verkehr {
-      background-image: url(../img/icons_blau/icon_verkehr_blau.svg); }
-    #project-list-container .project-list-container__body .project-list-container__body--projects__item__marker--blau--wirtschaft {
-      background-image: url(../img/icons_blau/icon_touristische-infrastruktur_blau.svg); }
-    #project-list-container .project-list-container__body .project-list-container__body--projects__item__marker--pink--digitalisierung {
-      background-image: url(../img/icons_pink/icon_digitalisierung.svg); }
-    #project-list-container .project-list-container__body .project-list-container__body--projects__item__marker--pink--forschung {
-      background-image: url(../img/icons_pink/icon_forschung.svg); }
-    #project-list-container .project-list-container__body .project-list-container__body--projects__item__marker--pink--klimaschutz {
-      background-image: url(../img/icons_pink/icon_klimaschutz.svg); }
-    #project-list-container .project-list-container__body .project-list-container__body--projects__item__marker--pink--landschaftspflege {
-      background-image: url(../img/icons_pink/icon_landschaftspflege.svg); }
-    #project-list-container .project-list-container__body .project-list-container__body--projects__item__marker--pink--fuersorge {
-      background-image: url(../img/icons_pink/icon_oeffentliche-fuersorge.svg); }
-    #project-list-container .project-list-container__body .project-list-container__body--projects__item__marker--pink--staedtebau {
-      background-image: url(../img/icons_pink/icon_staedtebau.svg); }
-    #project-list-container .project-list-container__body .project-list-container__body--projects__item__marker--pink--tourismus {
-      background-image: url(../img/icons_pink/icon_touristische-infrastruktur.svg); }
-    #project-list-container .project-list-container__body .project-list-container__body--projects__item__marker--pink--verkehr {
-      background-image: url(../img/icons_pink/icon_verkehr.svg); }
-    #project-list-container .project-list-container__body .project-list-container__body--projects__item__marker--pink--wirtschaft {
-      background-image: url(../img/icons_pink/icon_touristische_infrastruktur.svg); }
+  #project-list-container .project-list-container__body .project-list-item {
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2); }
+    #project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper {
+      width: 80%;
+      max-width: 80%;
+      min-width: 80%;
+      justify-content: flex-start; }
+      #project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper h4 {
+        color: black;
+        width: calc(100% - 79px); }
+      #project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker {
+        width: 24px;
+        height: 33px;
+        display: block;
+        margin-right: 15px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain; }
+        #project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--blau--digitalisierung {
+          background-image: url(../img/icons_blau/icon_digitalisierung_blau.svg); }
+        #project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--blau--forschung {
+          background-image: url(../img/icons_blau/icon_forschung_blau.svg); }
+        #project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--blau--klimaschutz {
+          background-image: url(../img/icons_blau/icon_klimaschutz_blau.svg); }
+        #project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--blau--landschaftspflege {
+          background-image: url(../img/icons_blau/icon_landschaftspflege_blau.svg); }
+        #project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--blau--fuersorge {
+          background-image: url(../img/icons_blau/icon_oeffentliche-fuersorge_blau.svg); }
+        #project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--blau--staedtebau {
+          background-image: url(../img/icons_blau/icon_staedtebau_blau.svg); }
+        #project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--blau--tourismus {
+          background-image: url(../img/icons_blau/icon_touristische-infrastruktur_blau.svg); }
+        #project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--blau--verkehr {
+          background-image: url(../img/icons_blau/icon_verkehr_blau.svg); }
+        #project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--blau--wirtschaft {
+          background-image: url(../img/icons_blau/icon_touristische-infrastruktur_blau.svg); }
+        #project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--pink--digitalisierung {
+          background-image: url(../img/icons_pink/icon_digitalisierung.svg); }
+        #project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--pink--forschung {
+          background-image: url(../img/icons_pink/icon_forschung.svg); }
+        #project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--pink--klimaschutz {
+          background-image: url(../img/icons_pink/icon_klimaschutz.svg); }
+        #project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--pink--landschaftspflege {
+          background-image: url(../img/icons_pink/icon_landschaftspflege.svg); }
+        #project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--pink--fuersorge {
+          background-image: url(../img/icons_pink/icon_oeffentliche-fuersorge.svg); }
+        #project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--pink--staedtebau {
+          background-image: url(../img/icons_pink/icon_staedtebau.svg); }
+        #project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--pink--tourismus {
+          background-image: url(../img/icons_pink/icon_touristische-infrastruktur.svg); }
+        #project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--pink--verkehr {
+          background-image: url(../img/icons_pink/icon_verkehr.svg); }
+        #project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--pink--wirtschaft {
+          background-image: url(../img/icons_pink/icon_touristische_infrastruktur.svg); }
+    #project-list-container .project-list-container__body .project-list-item .project-list-container__body--projects__item__arrow {
+      height: 25px;
+      width: 25px;
+      background-repeat: no-repeat;
+      background-size: contain;
+      margin-left: 15px;
+      display: none; }
+      #project-list-container .project-list-container__body .project-list-item .project-list-container__body--projects__item__arrow--blau {
+        background-image: url(../img/icons_blau/arrow-right-blue.svg); }
+      #project-list-container .project-list-container__body .project-list-item .project-list-container__body--projects__item__arrow--pink {
+        background-image: url(../img/icons_pink/arrow-right-pink.svg); }
+    #project-list-container .project-list-container__body .project-list-item:hover .project-list-container__body--projects__item__arrow {
+      display: block; }
   #project-list-container .project-list-container__body h1.project-list-container__body__headline {
     font-size: 30px;
     font-weight: bold;
