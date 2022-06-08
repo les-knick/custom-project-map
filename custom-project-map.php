@@ -312,7 +312,8 @@ endif;
 
     $list_script = "<div id='project-list-container' class='project-list-container'>
     <div class='project-list-container__head'>
-    <a class='project-list-container__head__logo'><img src='" . $logo_url . "'></a>
+    <a class='project-list-container__head__logo' href='" . home_url() . "'><img src='" . $logo_url . "'>
+    <p>zurück zur Startseite</p></a>
     </div>
     <div class='project-list-container__body'>
     <h1 class='project-list-container__body__headline'>Interaktive Projektkarte</h1>

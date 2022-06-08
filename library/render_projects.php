@@ -60,21 +60,23 @@ else if($project_theme == 'Wirtschaftsnahe Infrastruktur'){
 $project_theme = 0;
 $project_type = 0;
 
-$display_posts_script .= "<div data-id='" . $project_id . "'class='project-list-item project-list-container__body--projects__item flex' onclick='toggleActiveState(this)'>";
-$display_posts_script .= "<div class='list-item-txt-wrapper flex'><div class='project-list-container__body--projects__item__marker " . $item_marker_class . "'></div>";
+$display_posts_script .= "<div data-id='" . $project_id . "'class='project-list-item project-list-container__body--projects__item flex'>";
+$display_posts_script .= "<div class='list-item-txt-wrapper flex' onclick='toggleActiveState(this.parentNode)'><div class='project-list-container__body--projects__item__marker " . $item_marker_class . "'></div>";
 $display_posts_script .= "<h4>" . $project_title . "</h4></div>";
 $display_posts_script .= "<div class='project-list-container__body--projects__item__arrow " . $item_arrow_class . "'></div>
 <div class='project-content project-content--disabled project-list-container__body--projects__item__content'>
 <div class='project-list-container__head side-padding-40'>
-<a class='project-list-container__head__logo'><img src='" . $logo_url . "'></a>
+<a class='project-list-container__head__logo' href='" . home_url() . "'><img src='" . $logo_url . "'>
+    <p>zurück zur Startseite</p></a>
 </div>
 <div class='project-content__img-wrapper'>";
 if ( has_post_thumbnail( $project_id ) ) {
     $display_posts_script .= get_the_post_thumbnail( $project_id, 'thumbnail' );
 }
-$display_posts_script .= "</div>
+$display_posts_script .= "<div class='cmp__go-back' onclick='toggleActiveStateFromContent(this.parentNode)'></div>
+</div>
 <div class='project-content__container'>
-<h1 class='cmp-h1'>" . $project_title . "</h1>
+<h1 class='h2'>" . $project_title . "</h1>
 <p>" . get_post_field('post_content', $project_id) . "</p>
 <a href='" . $project_link . "'>Mehr Erfahren</a>
 </div>

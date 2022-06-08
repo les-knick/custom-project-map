@@ -23,9 +23,21 @@
         width: 30vw;
     }
     .project-content__img-wrapper {
+        position: relative;
         img {
             max-height: 50vh;
             object-fit: cover;
+        }
+        .cmp__go-back {
+            width: 25px;
+            height: 25px;
+            background-image: url(../img/icons_blau/arrow-right-blue.svg);
+            background-size: contain;
+            background-repeat: no-repeat;
+            position: absolute;
+            top: 20px;
+            left: 40px;
+            transform: rotate(180deg);
         }
     }
     .project-content__container {

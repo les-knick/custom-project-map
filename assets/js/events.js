@@ -1,18 +1,38 @@
-function toggleActiveState(element) {
-    var projectListContainer = document.getElementById('project-list-container');
-    console.log(projectListContainer);
-    projectListContainer.classList.toggle('project-list-container--no-scroll');
+function toggleActiveState(thisElement) {
+    var element = thisElement;
     var listId = element.dataset.id;
     var content = element.querySelector('.project-content');
     var theMarker = document.querySelector('[data-id="' + listId + '"]');
     theMarker.classList.toggle('marker--active');
     content.classList.toggle('project-content--disabled');
+    var projectListContainer = document.getElementById('project-list-container');
+    if (projectListContainer.classList.contains("project-list-container--no-scroll")) {
+        projectListContainer.classList.remove('project-list-container--no-scroll');
+    } else {
+        projectListContainer.classList.add('project-list-container--no-scroll');
+    }
 }
 
-function toggleActiveStateList(element) {
-    var markerId = element.dataset.id;
+function toggleActiveStateFromContent(thisElement) {
+    var element = thisElement;
+    element = element.parentNode.parentNode;
+
+    var listId = element.dataset.id;
+    var content = element.querySelector('.project-content');
+    var theMarker = document.querySelector('[data-id="' + listId + '"]');
+    theMarker.classList.toggle('marker--active');
+    content.classList.toggle('project-content--disabled');
     var projectListContainer = document.getElementById('project-list-container');
-    projectListContainer.classList.toggle('project-list-container--no-scroll');
+    if (projectListContainer.classList.contains("project-list-container--no-scroll")) {
+        projectListContainer.classList.remove('project-list-container--no-scroll');
+    } else {
+        projectListContainer.classList.add('project-list-container--no-scroll');
+    }
+}
+
+function toggleActiveStateList(thisElement) {
+    var element = thisElement;
+    var markerId = element.dataset.id;
     var listItems = document.querySelectorAll('.project-list-item');
     listItems.forEach(function(listItem) {
         var contentToDisable = listItem.querySelectorAll('.project-content');
@@ -26,6 +46,12 @@ function toggleActiveStateList(element) {
     var content = theListItem.querySelector('.project-content');
     element.classList.toggle('marker--active');
     content.classList.toggle('project-content--disabled');
+    var projectListContainer = document.getElementById('project-list-container');
+    if (projectListContainer.classList.contains("project-list-container--no-scroll")) {
+        projectListContainer.classList.remove('project-list-container--no-scroll');
+    } else {
+        projectListContainer.classList.add('project-list-container--no-scroll');
+    }
 }
 
 function filterMarker() {
