@@ -213,9 +213,9 @@ function cpm_map_shortcode($attr)
     ]);
 
     $display_types_script = '';
-    $display_types_script .= "<label><input type='radio' name='typefilter' value='all'>Alle</label>";
+    $display_types_script .= "<label><input type='radio' name='typefilter' value='all'><p>Alle</p></label>";
     foreach($get_terms_types as $terms_type){
-        $display_types_script .= "<label><input type='radio' name='typefilter' value='" . $terms_type->term_id . "'>" . $terms_type->name . "</label>";
+        $display_types_script .= "<label><input type='radio' name='typefilter' value='" . $terms_type->term_id . "'><p>" . $terms_type->name . "</p></label>";
     }
 
     $get_terms_themes = get_terms([
@@ -226,7 +226,40 @@ function cpm_map_shortcode($attr)
     $display_themes_script = '';
 
     foreach($get_terms_themes as $terms_theme){
-        $display_themes_script .= "<label><input type='checkbox' name='themefilter[]' value='" . $terms_theme->term_id . "'>" . $terms_theme->name . "</label>";
+        $term_name_icon = $terms_theme->name;
+        $legend_icon_class = '';
+        $legend_icon_class = 'legend__icon';
+        if($term_name_icon == 'Digitalisierung, Breitband- und Mobilfunkinfrastruktur'){
+            $legend_icon_class .= '--digitalisierung';
+        }
+        else if($term_name_icon == 'Infrastrukturen für Forschung, Innovation, Technologietransfer'){
+            $legend_icon_class .= '--forschung';
+        }
+        else if($term_name_icon == 'Klima- und Umweltschutz'){
+            $legend_icon_class .= '--klimaschutz';
+        }
+        else if($term_name_icon == 'Naturschutz und Landschaftspflege'){
+            $legend_icon_class .= '--landschaftspflege';
+        }
+        else if($term_name_icon == 'Öffentliche Fürsorge'){
+            $legend_icon_class .= '--fuersorge';
+        }
+        else if($term_name_icon == 'Städtebau, Stadt- und Regionalentwicklung'){
+            $legend_icon_class .= '--staedtebau';
+        }
+        else if($term_name_icon == 'Touristische Infrastruktur'){
+            $legend_icon_class .= '--tourismus';
+        }
+        else if($term_name_icon == 'Verkehr'){
+            $legend_icon_class .= '--verkehr';
+        }
+        else if($term_name_icon == 'Wirtschaftsnahe Infrastruktur'){
+            $legend_icon_class .= '--wirtschaft';
+        }
+
+        $display_themes_script .= "<label class='check-group'><div class='filter-cat-wrapper flex'><input type='checkbox' name='themefilter[]' value='" . $terms_theme->term_id . "'><p>" . $terms_theme->name . "</p>
+        </div><div class='legend flex'>
+        <div class='dotted-line'></div><div class='legend__icon " . $legend_icon_class . "'></div></div></label>";
     }
 
     $display_posts_script = '';
@@ -297,7 +330,8 @@ endif;
     "</div>
     </div>
     </div>
-    </div>";
+    </div>
+    <div class='mobile-toggle'><div class='mobile-toggle__handle'></div></div>";
 
     $events_script = "const list_items = document.querySelectorAll('.project-list-item');
     list_items.forEach(function(list_item){

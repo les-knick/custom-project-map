@@ -41,3 +41,24 @@ function filterMarker() {
         }
     });
 }
+
+$(document).ready(function() {
+
+    // only small screens
+    if ($(window).width() <= 800) {
+        // show menu on swipe to right
+        $(document).on('swiperight', function(e) {
+            e.preventDefault();
+            $('#project-list-container').animate({
+                left: '0'
+            });
+        });  // hide menu on swipe to left
+        $(document).on('swipeleft', function(e) {
+            e.preventDefault();
+            $('#project-list-container').animate({
+                left: '-100%'
+            });
+        });
+    }
+
+});
