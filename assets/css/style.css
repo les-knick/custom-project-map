@@ -73,6 +73,8 @@
   z-index: 999999999;
   padding: 0 40px;
   overflow-y: scroll; }
+  #project-list-container.project-list-container--no-scroll {
+    overflow-y: hidden; }
   #project-list-container .project-list-container__head {
     padding: 30px 0; }
     #project-list-container .project-list-container__head .project-list-container__head__logo {
@@ -233,32 +235,43 @@
     height: 75vh;
     top: unset;
     bottom: 0;
-    border-radius: 33px 33px 0 0; } }
-
-@media only screen and (min-width: 1280px) {
-  #project-list-container {
-    width: 40vw;
-    left: 0; }
+    border-radius: 33px 33px 0 0;
+    transform: translateY(calc(100% - 40px)); }
+    #project-list-container.project-list-container--active {
+      transform: translateY(0); }
+  #project-list-container.project-list-container--active + .mobile-toggle {
+    top: 25vh; }
   .mobile-toggle {
-    display: none; } }
-
-@media only screen and (min-width: 1920px) {
-  #project-list-container {
-    width: 30vw;
-    left: 0; }
-  .mobile-toggle {
-    display: none; } }
+    position: fixed;
+    width: 100vw;
+    left: 0;
+    top: calc(100vh - 40px);
+    z-index: 9999999999;
+    height: 40px; }
+    .mobile-toggle .mobile-toggle__handle {
+      height: 3px;
+      width: 20%;
+      background-color: black;
+      margin-top: 10px;
+      margin-right: 40vw;
+      margin-left: auto;
+      border-radius: 2px; } }
 
 @media only screen and (min-width: 800px) {
   #project-list-container {
     width: 50vw;
     border-radius: 0 33px 33px 0;
-    left: -100%; }
+    left: 0;
+    transform: translateX(calc((100% - 40px) * -1)); }
+    #project-list-container.project-list-container--active {
+      transform: translateX(0); }
+  #project-list-container.project-list-container--active + .mobile-toggle {
+    right: 50vw; }
   .mobile-toggle {
     position: fixed;
     height: 100vh;
     top: 0;
-    right: 50vw;
+    right: calc(100vw - 40px);
     z-index: 9999999999;
     width: 40px; }
     .mobile-toggle .mobile-toggle__handle {
@@ -270,13 +283,31 @@
       margin-left: auto;
       border-radius: 2px; } }
 
+@media only screen and (min-width: 1280px) {
+  #project-list-container {
+    width: 40vw;
+    left: 0 !important;
+    transform: translateX(0);
+    transform: translateY(0);
+    border-radius: 0; }
+  .mobile-toggle {
+    display: none; } }
+
+@media only screen and (min-width: 1920px) {
+  #project-list-container {
+    width: 30vw;
+    left: 0;
+    border-radius: 0; }
+  .mobile-toggle {
+    display: none; } }
+
 .project-content {
   display: block;
   position: fixed;
   top: 0;
   left: 0;
   width: 30vw;
-  height: 100vh;
+  height: 100%;
   overflow: scroll;
   background-color: white; }
   .project-content--disabled {

@@ -1,4 +1,7 @@
 function toggleActiveState(element) {
+    var projectListContainer = document.getElementById('project-list-container');
+    console.log(projectListContainer);
+    projectListContainer.classList.toggle('project-list-container--no-scroll');
     var listId = element.dataset.id;
     var content = element.querySelector('.project-content');
     var theMarker = document.querySelector('[data-id="' + listId + '"]');
@@ -8,6 +11,8 @@ function toggleActiveState(element) {
 
 function toggleActiveStateList(element) {
     var markerId = element.dataset.id;
+    var projectListContainer = document.getElementById('project-list-container');
+    projectListContainer.classList.toggle('project-list-container--no-scroll');
     var listItems = document.querySelectorAll('.project-list-item');
     listItems.forEach(function(listItem) {
         var contentToDisable = listItem.querySelectorAll('.project-content');
@@ -42,23 +47,7 @@ function filterMarker() {
     });
 }
 
-$(document).ready(function() {
-
-    // only small screens
-    if ($(window).width() <= 800) {
-        // show menu on swipe to right
-        $(document).on('swiperight', function(e) {
-            e.preventDefault();
-            $('#project-list-container').animate({
-                left: '0'
-            });
-        });  // hide menu on swipe to left
-        $(document).on('swipeleft', function(e) {
-            e.preventDefault();
-            $('#project-list-container').animate({
-                left: '-100%'
-            });
-        });
-    }
-
-});
+function toggleProjectList() {
+    var projectList = document.getElementById('project-list-container');
+    projectList.classList.toggle('project-list-container--active');
+}

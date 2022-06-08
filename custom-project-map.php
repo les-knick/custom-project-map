@@ -310,7 +310,7 @@ $display_posts_script .= "<p>Keine Beiträge</p>";
 endif;
  wp_reset_postdata(); 
 
-    $list_script = "<div id='project-list-container'>
+    $list_script = "<div id='project-list-container' class='project-list-container'>
     <div class='project-list-container__head'>
     <a class='project-list-container__head__logo'><img src='" . $logo_url . "'></a>
     </div>
@@ -331,7 +331,7 @@ endif;
     </div>
     </div>
     </div>
-    <div class='mobile-toggle'><div class='mobile-toggle__handle'></div></div>";
+    <div class='mobile-toggle' onclick='toggleProjectList()'><div class='mobile-toggle__handle'></div></div>";
 
     $events_script = "const list_items = document.querySelectorAll('.project-list-item');
     list_items.forEach(function(list_item){
