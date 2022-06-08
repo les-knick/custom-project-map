@@ -196,7 +196,6 @@ function cpm_map_shortcode($attr)
         }
         el.className = element_class;
         el.addEventListener('click', function(){
-            console.log('element event listener');
             toggleActiveStateList(this);
             })
          ";
@@ -334,12 +333,6 @@ endif;
     </div>
     <div class='mobile-toggle' onclick='toggleProjectList()'><div class='mobile-toggle__handle'></div></div>";
 
-    $events_script = "const list_items = document.querySelectorAll('.project-list-item');
-    list_items.forEach(function(list_item){
-        list_item.addEventListener('click', toggleActiveState);
-      });
-      ";
-
 
     // Things that you want to do.
 
@@ -352,7 +345,6 @@ endif;
     $message .= $addMarkerToMap_script;
     $message .= $script_close;
     $message .= $script_open;
-    $message .= $events_script;
     $message .= $filter_script;
     $message .= $script_close;
 
