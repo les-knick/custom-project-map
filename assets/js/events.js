@@ -77,3 +77,25 @@ function toggleProjectList() {
     var projectList = document.getElementById('project-list-container');
     projectList.classList.toggle('project-list-container--active');
 }
+
+function animateCounter() {
+    const counters = document.querySelectorAll('counter-block__container__inner__content--number h2');
+    const speed = 200;
+
+    counters.forEach((counter) => {
+        const updateCount = () => {
+            const target = parseInt(+counter.getAttribute('data-target'));
+            const count = parseInt(+counter.innerText);
+            const increment = Math.trunc(target / speed);
+            console.log(increment);
+
+            if (count < target) {
+                counter.innerText = count + increment;
+                setTimeout(updateCount, 1);
+            } else {
+                count.innerText = target;
+            }
+        };
+        updateCount();
+    });
+}

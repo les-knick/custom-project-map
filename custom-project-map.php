@@ -158,32 +158,56 @@ function cpm_counter_shortcode($attr)
     $counter_mittel = get_post_meta($args['id'], '_cpm_counter_mittel', true);
 
     $message = "<div class='counter-block'>
-    <div class='counter-block__container'>
+    <div class='counter-block__container flex'>
         <div class='counter-block__container__inner counter-block__container__inner--projekte'>
-            <div class='counter-block__container__inner__content counter-block__container__inner__content--icon'>
-            </div>
-            <div class='counter-block__container__inner__content counter-block__container__inner__content--number'><h2>" . $counter_projekte . "</h2></div>
+            <div class='counter-block__container__inner__content counter-block__container__inner__content--icon'><img src='" . site_url() . "/wp-content/plugins/custom-project-map/assets/img/icons_counter/icon-projekte.svg'></div>
+
+            <div class='counter-block__container__inner__content counter-block__container__inner__content--number h2' counterval = '" . $counter_projekte . "'>0</div>
             <div class='counter-block__container__inner__content counter-block__container__inner__content--text'><p>Bewilligte Projekte</p></div>
         </div>
         <div class='counter-block__container__inner counter-block__container__inner--zuwendungen'>
-            <div class='counter-block__container__inner__content counter-block__container__inner__content--icon'></div>
-            <div class='counter-block__container__inner__content counter-block__container__inner__content--number'><h2>" . $counter_zuwendungen . "</h2></div>
+            <div class='counter-block__container__inner__content counter-block__container__inner__content--icon'><img src='" . site_url() . "/wp-content/plugins/custom-project-map/assets/img/icons_counter/icon-zuwendungen.svg'></div>
+            <div class='counter-block__container__inner__content counter-block__container__inner__content--number h2' counterval = '" . $counter_zuwendungen . "'>0</div>
             <div class='counter-block__container__inner__content counter-block__container__inner__content--text'><p>Bewilligte Zuwendungen (in T€)</p></div>
         </div>
         <div class='counter-block__container__inner counter-block__container__inner--einwohnerinnen'>
-            <div class='counter-block__container__inner__content counter-block__container__inner__content--icon'></div>
-            <div class='counter-block__container__inner__content counter-block__container__inner__content--number'><h2>" . $counter_einwohnerinnen . "</h2></div>
+            <div class='counter-block__container__inner__content counter-block__container__inner__content--icon'><img src='" . site_url() . "/wp-content/plugins/custom-project-map/assets/img/icons_counter/icon-einwohnerinnen.svg'></div>
+            <div class='counter-block__container__inner__content counter-block__container__inner__content--number h2' counterval = '" . $counter_einwohnerinnen . "'>0</div>
             <div class='counter-block__container__inner__content counter-block__container__inner__content--text'><p>Einwohnerinnen und Einwohner</p></div>
         </div>
         <div class='counter-block__container__inner counter-block__container__inner--mittel'>
-            <div class='counter-block__container__inner__content counter-block__container__inner__content--icon'></div>
-            <div class='counter-block__container__inner__content counter-block__container__inner__content--number'><h2>" . $counter_mittel . "</h2></div>
+            <div class='counter-block__container__inner__content counter-block__container__inner__content--icon'>
+            <img src='" . site_url() . "/wp-content/plugins/custom-project-map/assets/img/icons_counter/icon-mittel.svg'></div>
+            <div class='counter-block__container__inner__content counter-block__container__inner__content--number h2' counterval = '" . $counter_mittel . "'>0</div>
             <div class='counter-block__container__inner__content counter-block__container__inner__content--text'><p>Bereitgestellte Mittel Für den Strukturwandel (in T€)</p></div>
         </div>
     </div>
 </div>";
-return $message;
+    $message .= "  <script> 
+    document.addEventListener('DOMContentLoaded', function() {
+        const counters = document.querySelectorAll('.counter-block__container__inner__content--number');
+const speed = 200;
 
+counters.forEach( counter => {
+   const animate = () => {
+      const value = +counter.getAttribute('counterval');
+      const data = +counter.innerText;
+     
+      const time = value / speed;
+     if(data < value) {
+          counter.innerText = Math.ceil(data + time);
+          setTimeout(animate, 1);
+        }else{
+          counter.innerText = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+     
+   }
+   
+   animate();
+});
+      });
+    </script>";
+    return $message;
 }
 // register shortcode
 add_shortcode('cpm_counter', 'cpm_counter_shortcode');
@@ -210,8 +234,8 @@ function cpm_map_shortcode($attr)
     $script_open = " <script> ";
     $script_close = " </script> ";
 
-    $custom_logo_id = get_theme_mod( 'custom_logo' );
-    $logo = wp_get_attachment_image_src( $custom_logo_id , 'full' );
+    $custom_logo_id = get_theme_mod('custom_logo');
+    $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
     $logo_url = esc_url($logo[0]);
     $home_url = get_home_url();
 
@@ -294,7 +318,7 @@ function cpm_map_shortcode($attr)
 
     $display_types_script = '';
     $display_types_script .= "<label><input type='radio' name='typefilter' value='all'><p>Alle</p></label>";
-    foreach($get_terms_types as $terms_type){
+    foreach ($get_terms_types as $terms_type) {
         $display_types_script .= "<label><input type='radio' name='typefilter' value='" . $terms_type->term_id . "'><p>" . $terms_type->name . "</p></label>";
     }
 
@@ -305,35 +329,27 @@ function cpm_map_shortcode($attr)
 
     $display_themes_script = '';
 
-    foreach($get_terms_themes as $terms_theme){
+    foreach ($get_terms_themes as $terms_theme) {
         $term_name_icon = $terms_theme->name;
         $legend_icon_class = '';
         $legend_icon_class = 'legend__icon';
-        if($term_name_icon == 'Digitalisierung, Breitband- und Mobilfunkinfrastruktur'){
+        if ($term_name_icon == 'Digitalisierung, Breitband- und Mobilfunkinfrastruktur') {
             $legend_icon_class .= '--digitalisierung';
-        }
-        else if($term_name_icon == 'Infrastrukturen für Forschung, Innovation, Technologietransfer'){
+        } else if ($term_name_icon == 'Infrastrukturen für Forschung, Innovation, Technologietransfer') {
             $legend_icon_class .= '--forschung';
-        }
-        else if($term_name_icon == 'Klima- und Umweltschutz'){
+        } else if ($term_name_icon == 'Klima- und Umweltschutz') {
             $legend_icon_class .= '--klimaschutz';
-        }
-        else if($term_name_icon == 'Naturschutz und Landschaftspflege'){
+        } else if ($term_name_icon == 'Naturschutz und Landschaftspflege') {
             $legend_icon_class .= '--landschaftspflege';
-        }
-        else if($term_name_icon == 'Öffentliche Fürsorge'){
+        } else if ($term_name_icon == 'Öffentliche Fürsorge') {
             $legend_icon_class .= '--fuersorge';
-        }
-        else if($term_name_icon == 'Städtebau, Stadt- und Regionalentwicklung'){
+        } else if ($term_name_icon == 'Städtebau, Stadt- und Regionalentwicklung') {
             $legend_icon_class .= '--staedtebau';
-        }
-        else if($term_name_icon == 'Touristische Infrastruktur'){
+        } else if ($term_name_icon == 'Touristische Infrastruktur') {
             $legend_icon_class .= '--tourismus';
-        }
-        else if($term_name_icon == 'Verkehr'){
+        } else if ($term_name_icon == 'Verkehr') {
             $legend_icon_class .= '--verkehr';
-        }
-        else if($term_name_icon == 'Wirtschaftsnahe Infrastruktur'){
+        } else if ($term_name_icon == 'Wirtschaftsnahe Infrastruktur') {
             $legend_icon_class .= '--wirtschaft';
         }
 
@@ -347,18 +363,18 @@ function cpm_map_shortcode($attr)
     $filter_script = "const list_items_duplicate = 0;
     jQuery(function($) {
         $('input[type=";
-        $filter_script .= '"radio"]';
-        $filter_script .= "').click(function() {
+    $filter_script .= '"radio"]';
+    $filter_script .= "').click(function() {
                 $('#filter').submit();
         });";
 
-        $filter_script .= "$('input[type=";
-            $filter_script .= '"checkbox"]';
-            $filter_script .= "').click(function() {
+    $filter_script .= "$('input[type=";
+    $filter_script .= '"checkbox"]';
+    $filter_script .= "').click(function() {
                     $('#filter').submit();
             });";
 
-        $filter_script .= "$('#filter').submit(function() {
+    $filter_script .= "$('#filter').submit(function() {
             var form = $('#filter');
             $.ajax({
                 url: form.attr('action'),
@@ -374,21 +390,21 @@ function cpm_map_shortcode($attr)
         });
     });";
 
-$args = array(
- 'post_type' => 'project',
- 'orderby' => 'title',
- 'order' => 'ASC'
-);
+    $args = array(
+        'post_type' => 'project',
+        'orderby' => 'title',
+        'order' => 'ASC'
+    );
 
-$custom_query = new WP_Query($args); 
+    $custom_query = new WP_Query($args);
 
-if ($custom_query->have_posts()) : while($custom_query->have_posts()) : $custom_query->the_post();  
-require "render_projects.php";
-endwhile;
-else :
-$display_posts_script .= "<p>Keine Beiträge</p>";
-endif;
- wp_reset_postdata(); 
+    if ($custom_query->have_posts()) : while ($custom_query->have_posts()) : $custom_query->the_post();
+            require "render_projects.php";
+        endwhile;
+    else :
+        $display_posts_script .= "<p>Keine Beiträge</p>";
+    endif;
+    wp_reset_postdata();
 
     $list_script = "<div id='project-list-container' class='project-list-container'>
     <div class='project-list-container__head'>
@@ -400,15 +416,15 @@ endif;
     <div class='project-list-container__body--filter'>
     <h2 class='project-list-container__body__headline project-list-container__body__headline--with-line'>Filter</h2>
     <form action='" . $home_url . "/wp-admin/admin-ajax.php' method='POST' id='filter' class='project-list-container__body--filter__form'>
-    <h3 class='project-list-container__body__headline'>Förderungen</h3>" . $display_types_script . 
-    "<h3 class='project-list-container__body__headline'>Themen</h3>" . $display_themes_script . 
-    "<input type='hidden' name='action' value='myfilter'>
+    <h3 class='project-list-container__body__headline'>Förderungen</h3>" . $display_types_script .
+        "<h3 class='project-list-container__body__headline'>Themen</h3>" . $display_themes_script .
+        "<input type='hidden' name='action' value='myfilter'>
     <button style='display: none;'>Filter</button>
     </form>
     </div>
     <div class='project-list-container__body--projects'>
-    <h2 class='project-list-container__body__headline project-list-container__body__headline--with-line'>Projekte</h2><div id='response'>" . $display_posts_script . 
-    "</div>
+    <h2 class='project-list-container__body__headline project-list-container__body__headline--with-line'>Projekte</h2><div id='response'>" . $display_posts_script .
+        "</div>
     </div>
     </div>
     </div>
@@ -453,48 +469,48 @@ function misha_filter_function()
     $result = array();
 
     // for categories
-   
-        $filter_args =  array(
-            'post_type'   => 'project',
-            'tax_query' => array()
+
+    $filter_args =  array(
+        'post_type'   => 'project',
+        'tax_query' => array()
+    );
+
+    if (isset($_POST['typefilter'])) {
+        $result['type'] = $_POST['typefilter'];
+        if ($result['type'] != 'all') {
+            $filter_args['tax_query'][0] = array(
+                'taxonomy' => 'typ',   // taxonomy name
+                'field' => 'term_id',           // term_id, slug or name
+                'terms' => $result['type']                  // term id, term slug or term name
             );
+        }
+    }
+    if (isset($_POST['themefilter'])) {
+        $result['theme'] = $_POST['themefilter'];
+        $filter_args['tax_query'][1] = array(
+            'taxonomy' => 'thema',   // taxonomy name
+            'field' => 'term_id',           // term_id, slug or name
+            'terms' => $result['theme'],                  // term id, term slug or term name
+        );
+    }
 
-               if (isset($_POST['typefilter'])) {
-                $result['type'] = $_POST['typefilter'];
-                if($result['type'] != 'all'){
-                $filter_args['tax_query'][0] = array(
-                            'taxonomy' => 'typ',   // taxonomy name
-                            'field' => 'term_id',           // term_id, slug or name
-                            'terms' => $result['type']                  // term id, term slug or term name
-                );
-            }
-            }
-            if (isset($_POST['themefilter'])) {
-                $result['theme'] = $_POST['themefilter'];
-                $filter_args['tax_query'][1] = array(
-                    'taxonomy' => 'thema',   // taxonomy name
-                    'field' => 'term_id',           // term_id, slug or name
-                    'terms' => $result['theme'],                  // term id, term slug or term name
-                );
-            }
+    $result_query = new WP_Query($filter_args);
 
-        $result_query = new WP_Query($filter_args);
-
-            if ($result_query->have_posts()) : while ($result_query->have_posts()) : $result_query->the_post();
-                    include "render_projects.php";
-                    echo $display_posts_script;
-                    $display_posts_script = '';
-                endwhile;
-            else : ?>
-                <p>Keine Beiträge</p>
-            <?php endif;
-            wp_reset_postdata();
-            $result = '';
-            $filter_args = '';
-            ?>
-            <script>
-                filterMarker();
-            </script>
-            <?php
+    if ($result_query->have_posts()) : while ($result_query->have_posts()) : $result_query->the_post();
+            include "render_projects.php";
+            echo $display_posts_script;
+            $display_posts_script = '';
+        endwhile;
+    else : ?>
+        <p>Keine Beiträge</p>
+    <?php endif;
+    wp_reset_postdata();
+    $result = '';
+    $filter_args = '';
+    ?>
+    <script>
+        filterMarker();
+    </script>
+<?php
     die();
 }
