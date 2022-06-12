@@ -61,15 +61,29 @@ function cpm_map_columns($columns)
     return $columns;
 }
 
+add_filter('manage_counter_posts_columns', 'cpm_counter_columns');
+
+function cpm_counter_columns($columns)
+{
+    $columns = array(
+        'cb' => $columns['cb'],
+        'title' => __('Title'),
+        'shortcode' => __('Shortcode', 'cpm'),
+        'date' => __('Date')
+    );
+
+    return $columns;
+}
+
 
 // show shortcode in new column on post list view
-add_action('manage_map_posts_custom_column', 'cpm_map_column', 10, 2);
+add_action('manage_counter_posts_custom_column', 'cpm_counter_column', 10, 2);
 
-function cpm_map_column($column, $post_id)
+function cpm_counter_column($column, $post_id)
 {
     if ($column == 'shortcode') {
-        $map_shortcode = "[cpm_map id=&#34;" . $post_id . "&#34;]";
-        echo $map_shortcode;
+        $counter_shortcode = "[cpm_counter id=&#34;" . $post_id . "&#34;]";
+        echo $counter_shortcode;
     }
 }
 
@@ -109,9 +123,76 @@ if (is_admin()) {
     add_action('load-post-new.php', 'call_metaboxMaps');
 }
 
+// Metabox Projects
+
+/**
+ * Calls the class on the post edit screen.
+ */
+function call_metaboxCounter()
+{
+    require_once "class_metaboxCounter.php";
+    new metaboxCounter();
+}
+
+if (is_admin()) {
+    add_action('load-post.php',     'call_metaboxCounter');
+    add_action('load-post-new.php', 'call_metaboxCounter');
+}
+
 
 
 // SHORTCODES
+
+function cpm_counter_shortcode($attr)
+{
+    // require_once "map_shortcode.php";
+    $args = shortcode_atts(array(
+
+        'id' => '0'
+
+    ), $attr);
+
+    $counter_projekte = get_post_meta($args['id'], '_cpm_counter_projekt', true);
+    $counter_zuwendungen = get_post_meta($args['id'], '_cpm_counter_zuwendungen', true);
+    $counter_einwohnerinnen = get_post_meta($args['id'], '_cpm_counter_einwohnerinnen', true);
+    $counter_mittel = get_post_meta($args['id'], '_cpm_counter_mittel', true);
+
+    $message = "<div class='counter-block'>
+    <div class='counter-block__container'>
+        <div class='counter-block__container__inner counter-block__container__inner--projekte'>
+            <div class='counter-block__container__inner__content counter-block__container__inner__content--icon'>
+            </div>
+            <div class='counter-block__container__inner__content counter-block__container__inner__content--number'><h2>" . $counter_projekte . "</h2></div>
+            <div class='counter-block__container__inner__content counter-block__container__inner__content--text'><p>Bewilligte Projekte</p></div>
+        </div>
+        <div class='counter-block__container__inner counter-block__container__inner--zuwendungen'>
+            <div class='counter-block__container__inner__content counter-block__container__inner__content--icon'></div>
+            <div class='counter-block__container__inner__content counter-block__container__inner__content--number'><h2>" . $counter_zuwendungen . "</h2></div>
+            <div class='counter-block__container__inner__content counter-block__container__inner__content--text'><p>Bewilligte Zuwendungen (in T€)</p></div>
+        </div>
+        <div class='counter-block__container__inner counter-block__container__inner--einwohnerinnen'>
+            <div class='counter-block__container__inner__content counter-block__container__inner__content--icon'></div>
+            <div class='counter-block__container__inner__content counter-block__container__inner__content--number'><h2>" . $counter_einwohnerinnen . "</h2></div>
+            <div class='counter-block__container__inner__content counter-block__container__inner__content--text'><p>Einwohnerinnen und Einwohner</p></div>
+        </div>
+        <div class='counter-block__container__inner counter-block__container__inner--mittel'>
+            <div class='counter-block__container__inner__content counter-block__container__inner__content--icon'></div>
+            <div class='counter-block__container__inner__content counter-block__container__inner__content--number'><h2>" . $counter_mittel . "</h2></div>
+            <div class='counter-block__container__inner__content counter-block__container__inner__content--text'><p>Bereitgestellte Mittel Für den Strukturwandel (in T€)</p></div>
+        </div>
+    </div>
+</div>";
+return $message;
+
+}
+// register shortcode
+add_shortcode('cpm_counter', 'cpm_counter_shortcode');
+
+
+
+
+
+
 
 // function that runs when shortcode is called
 function cpm_map_shortcode($attr)
