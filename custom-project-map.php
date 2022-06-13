@@ -75,6 +75,17 @@ function cpm_counter_columns($columns)
     return $columns;
 }
 
+// show shortcode in new column on post list view
+add_action('manage_map_posts_custom_column', 'cpm_map_column', 10, 2);
+
+function cpm_map_column($column, $post_id)
+{
+    if ($column == 'shortcode') {
+        $map_shortcode = "[cpm_map id=&#34;" . $post_id . "&#34;]";
+        echo $map_shortcode;
+    }
+}
+
 
 // show shortcode in new column on post list view
 add_action('manage_counter_posts_custom_column', 'cpm_counter_column', 10, 2);
