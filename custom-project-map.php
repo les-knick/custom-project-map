@@ -3,7 +3,7 @@
 Plugin Name:  Custom Project Map
 Plugin URI:   https://knick.design
 Description:  Plugin for Custom Project Maps. Extends the wp backend.
-Version:      0.9
+Version:      0.9.01
 Author:       Knick Design - Lea Stocker
 Author URI:   https://knick.design
 License:      GPL2
