@@ -78,7 +78,7 @@ $display_posts_script .= "<div class='cmp__go-back' onclick='toggleActiveStateFr
 <div class='project-content__container'>
 <h1 class='h2'>" . $project_title . "</h1>
 <p>" . get_post_field('post_content', $project_id) . "</p>
-<a href='" . $project_link . "'>Mehr Erfahren</a>
+<a class='project-content__container__more-link' href='" . $project_link . "'>Mehr Erfahren</a>
 </div>
 </div>
 </div>";

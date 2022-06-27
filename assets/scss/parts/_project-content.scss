@@ -42,5 +42,12 @@
     }
     .project-content__container {
         padding: 40px;
+        .project-content__container__more-link {
+            margin-top: 40px;
+            display: block;
+        }
+        h1.h2 {
+            margin-top: 20px;
+        }
     }
 }

@@ -350,6 +350,11 @@
       transform: rotate(180deg); }
   .project-content .project-content__container {
     padding: 40px; }
+    .project-content .project-content__container .project-content__container__more-link {
+      margin-top: 40px;
+      display: block; }
+    .project-content .project-content__container h1.h2 {
+      margin-top: 20px; }
 
 .counter-block {
   padding: 100px 0;
