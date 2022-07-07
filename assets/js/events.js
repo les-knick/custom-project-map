@@ -6,11 +6,12 @@ function toggleActiveState(thisElement) {
     theMarker.classList.toggle('marker--active');
     content.classList.toggle('project-content--disabled');
     var projectListContainer = document.getElementById('project-list-container');
-    if (projectListContainer.classList.contains("project-list-container--no-scroll")) {
+    projectListContainer.classList.toggle('project-list-container--no-scroll');
+    /* if (projectListContainer.classList.contains("project-list-container--no-scroll")) {
         projectListContainer.classList.remove('project-list-container--no-scroll');
     } else {
         projectListContainer.classList.add('project-list-container--no-scroll');
-    }
+    } */
 }
 
 function toggleActiveStateFromContent(thisElement) {
@@ -23,35 +24,43 @@ function toggleActiveStateFromContent(thisElement) {
     theMarker.classList.toggle('marker--active');
     content.classList.toggle('project-content--disabled');
     var projectListContainer = document.getElementById('project-list-container');
-    if (projectListContainer.classList.contains("project-list-container--no-scroll")) {
+    projectListContainer.classList.toggle('project-list-container--no-scroll');
+    /* if (projectListContainer.classList.contains("project-list-container--no-scroll")) {
         projectListContainer.classList.remove('project-list-container--no-scroll');
     } else {
         projectListContainer.classList.add('project-list-container--no-scroll');
-    }
+    } */
 }
 
 function toggleActiveStateList(thisElement) {
     var element = thisElement;
     var markerId = element.dataset.id;
     var listItems = document.querySelectorAll('.project-list-item');
+    var projectListContainer = document.getElementById('project-list-container');
     listItems.forEach(function(listItem) {
-        var contentToDisable = listItem.querySelectorAll('.project-content');
-        contentToDisable.forEach(function(ctd) {
-            ctd.classList.add('project-content--disabled');
+        var contentToDisable = listItem.querySelector('.project-content');
+        var containsClass = contentToDisable.classList.contains('project-content--disabled');
+        if (containsClass == true) {
+
+        } else {
+            contentToDisable.classList.add('project-content--disabled');
             var markerToDisable = document.querySelector('.marker[data-id="' + listItem.dataset.id + '"]');
             markerToDisable.classList.remove('marker--active');
-        });
+            projectListContainer.classList.toggle('project-list-container--no-scroll');
+        }
+
     });
     var theListItem = document.querySelector('.project-list-item[data-id="' + markerId + '"]');
     var content = theListItem.querySelector('.project-content');
     element.classList.toggle('marker--active');
     content.classList.toggle('project-content--disabled');
-    var projectListContainer = document.getElementById('project-list-container');
-    if (projectListContainer.classList.contains("project-list-container--no-scroll")) {
+
+    projectListContainer.classList.toggle('project-list-container--no-scroll');
+    /* if (projectListContainer.classList.contains("project-list-container--no-scroll")) {
         projectListContainer.classList.remove('project-list-container--no-scroll');
     } else {
         projectListContainer.classList.add('project-list-container--no-scroll');
-    }
+    } */
 }
 
 function filterMarker() {
@@ -78,24 +87,10 @@ function toggleProjectList() {
     projectList.classList.toggle('project-list-container--active');
 }
 
-function animateCounter() {
-    const counters = document.querySelectorAll('counter-block__container__inner__content--number h2');
-    const speed = 200;
-
-    counters.forEach((counter) => {
-        const updateCount = () => {
-            const target = parseInt(+counter.getAttribute('data-target'));
-            const count = parseInt(+counter.innerText);
-            const increment = Math.trunc(target / speed);
-            console.log(increment);
-
-            if (count < target) {
-                counter.innerText = count + increment;
-                setTimeout(updateCount, 1);
-            } else {
-                count.innerText = target;
-            }
-        };
-        updateCount();
-    });
+function waitForMapLoaded() {
+    if (!map.loaded()) {
+        window.setTimeout(waitForMapLoaded, 100);
+    } else {
+        filterMarker();
+    }
 }

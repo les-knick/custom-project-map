@@ -153,6 +153,12 @@
             color: $color-blue;
         }
         .project-list-container__body--filter__form {
+            label:nth-child(3) input[name="typefilter"]+p {
+                color: $color-pink;
+            }
+            label:nth-child(4) input[name="typefilter"]+p {
+                color: $color-blue;
+            }
             label {
                 display: flex;
                 &.check-group {
