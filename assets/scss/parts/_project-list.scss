@@ -256,7 +256,7 @@
         position: fixed;
         width: 100vw;
         left: 0;
-        top: calc(100vh - 40px);
+        top: calc(100vh - 140px);
         z-index: 9999999999;
         height: 40px;
         .mobile-toggle__handle {
@@ -267,6 +267,7 @@
             margin-right: 40vw;
             margin-left: auto;
             border-radius: 2px;
+            z-index: 999999999999999999;
         }
     }
     .project-content.project-list-container__body--projects__item__content {

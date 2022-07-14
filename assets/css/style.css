@@ -336,7 +336,7 @@
     position: fixed;
     width: 100vw;
     left: 0;
-    top: calc(100vh - 40px);
+    top: calc(100vh - 140px);
     z-index: 9999999999;
     height: 40px;
   }
@@ -348,6 +348,7 @@
     margin-right: 40vw;
     margin-left: auto;
     border-radius: 2px;
+    z-index: 1000000000000000100;
   }
 
   .project-content.project-list-container__body--projects__item__content {
