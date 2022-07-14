@@ -255,7 +255,7 @@ function cpm_map_shortcode($attr)
 
     $map_script = "mapboxgl.accessToken = '" . $map_accessToken . "'; ";
     $map_script .= "var map = new mapboxgl.Map({ container: 'map-container', style: '" . $map_styleUrl . "', ";
-    $map_script .= "center: [12.467, 52.281], zoom: 6 });";
+    $map_script .= "center: [12.4470232, 51.325346], zoom: 8 });";
     $map_script .= "var nav = new mapboxgl.NavigationControl({ showCompass: false }); map.addControl(nav, 'bottom-right'); ";
 
     $getJson_script = "var jsonPath = '" . site_url() . "/wp-content/plugins/custom-project-map/assets/data.geojson'; ";
