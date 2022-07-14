@@ -329,7 +329,7 @@
   }
 
   #project-list-container.project-list-container--active + .mobile-toggle {
-    top: 25vh;
+    top: calc(25vh - 60px);
   }
 
   .mobile-toggle {
