@@ -336,7 +336,7 @@
     position: fixed;
     width: 100vw;
     left: 0;
-    top: calc(100vh - 80px);
+    top: calc(100vh - 120px);
     z-index: 9999999999;
     height: 80px;
   }
