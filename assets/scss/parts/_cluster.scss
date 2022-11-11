@@ -1,0 +1,40 @@
+.cluster-point {
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    border-radius: 50%;
+    border: 3px solid $color-blue;
+    position: absolute;
+    z-index: 999;
+    color: $color-blue;
+    text-align: center;
+    padding-top: 1px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+    cursor: pointer;
+}
+
+#map-container {
+    .cluster-point--declustered {
+        display: none;
+    }
+    .marker--clustered {
+        display: none;
+    }
+    /*  &.high-zoom {
+        .cluster-point {
+            display: none;
+        }
+        .marker--clustered {
+            display: block;
+        }
+    }
+    &.low-zoom {
+        .cluster-point {
+            display: block;
+            &--declustered {
+                display: none;
+            }
+        }
+       
+    } */
+}
