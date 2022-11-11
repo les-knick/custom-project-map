@@ -1,9 +1,7 @@
-    <?php
-    
+<?php
     /**
      * Post Type: Projekte.
      */
-
     $labels = [
         "name" => __("Projekte", "twentytwentyone"),
         "singular_name" => __("Projekt", "twentytwentyone"),
@@ -112,4 +110,4 @@
     ];
 
     register_post_type("counter", $args);
-    ?>
+?>

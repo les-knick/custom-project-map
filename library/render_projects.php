@@ -15,20 +15,22 @@ $logo = wp_get_attachment_image_src( $custom_logo_id , 'full' );
 $logo_url = esc_url($logo[0]);
 $home_url = get_home_url();
 
+$project_kosten = get_post_meta($project_id, '_cpm_project_kosten', true);
+$project_kosten = number_format($project_kosten, 0, ',', '.');
+$project_proj_time = get_post_meta($project_id, '_cpm_project_proj_time', true);
+$project_status = get_post_meta($project_id, '_cpm_project_status', true);
+
+$content_post = get_post($project_id);
+$content = $content_post->post_content;
+$content = apply_filters('the_content', $content);
+$project_content = str_replace(']]>', ']]&gt;', $content);
+
 $item_marker_class = 0;
 $item_arrow_class = 0;
 
 $item_marker_class = "project-list-container__body--projects__item__marker";
 $item_arrow_class = "project-list-container__body--projects__item__arrow";
 
-if($project_type == 'Landesprojekt'){
-    $item_marker_class .= '--blau';
-    $item_arrow_class .= '--blau';
-}
-else if($project_type == 'Kommunalprojekt'){
-    $item_marker_class .= '--pink';
-    $item_arrow_class .= '--pink';
-}
 if($project_theme == 'Digitalisierung, Breitband- und Mobilfunkinfrastruktur'){
     $item_marker_class .= '--digitalisierung';
 }
@@ -76,10 +78,23 @@ if ( has_post_thumbnail( $project_id ) ) {
 $display_posts_script .= "<div class='cmp__go-back' onclick='toggleActiveStateFromContent(this.parentNode)'></div>
 </div>
 <div class='project-content__container'>
-<h1 class='h2'>" . $project_title . "</h1>
-<p>" . get_post_field('post_content', $project_id) . "</p>
-<a class='project-content__container__more-link' href='" . $project_link . "'>Mehr Erfahren</a>
-</div>
+<h1 class='h3'>" . $project_title . "</h1>";
+if( $project_kosten ){
+$display_posts_script .= "<p><span class='font-bold'>Gesamtkosten (vsl.): </span>" . $project_kosten . "€</p>";
+}
+if( $project_proj_time ){
+$display_posts_script .= "<p><span class='font-bold'>Realisierungszeitraum (vsl.): </span>";
+    $display_posts_script .= $project_proj_time;
+    $display_posts_script .= "</p>";
+}
+if( $project_status ){
+$display_posts_script .= "<p><span class='font-bold'>Status: </span>" . $project_status . "</p><br>";
+}
+$display_posts_script .= "<p>" . $project_content . "</p>";
+if( $project_link ){
+$display_posts_script .= "<a class='project-content__container__more-link' href='" . $project_link . "'>Mehr Erfahren</a>";
+}
+$display_posts_script .="</div>
 </div>
 </div>";
 ?>

@@ -21,7 +21,7 @@ class metaboxProjects
         if (in_array($post_type, $post_types)) {
             add_meta_box(
                 'coordinates',
-                __('Koordinaten', 'textdomain'),
+                __('Informationen', 'textdomain'),
                 array($this, 'render_meta_box_content'),
                 $post_type,
                 'advanced',
@@ -80,11 +80,17 @@ class metaboxProjects
         $latitude = sanitize_text_field($_POST['cpm_latitude']);
         $longitude = sanitize_text_field($_POST['cpm_longitude']);
         $link = sanitize_text_field($_POST['cpm_link']);
+        $kosten = sanitize_text_field($_POST['cpm_kosten']);
+        $proj_time = sanitize_text_field($_POST['cpm_proj_time']);
+        $status = sanitize_text_field($_POST['cpm_status']);
 
         // Update the meta field.
         update_post_meta($post_id, '_cpm_project_latitude', $latitude);
         update_post_meta($post_id, '_cpm_project_longitude', $longitude);
         update_post_meta($post_id, '_cpm_project_link', $link);
+        update_post_meta($post_id, '_cpm_project_kosten', $kosten);
+        update_post_meta($post_id, '_cpm_project_proj_time', $proj_time);
+        update_post_meta($post_id, '_cpm_project_status', $status);
     }
 
 
@@ -103,6 +109,10 @@ class metaboxProjects
         $value_latitude = get_post_meta($post->ID, '_cpm_project_latitude', true);
         $value_longitude = get_post_meta($post->ID, '_cpm_project_longitude', true);
         $value_link = get_post_meta($post->ID, '_cpm_project_link', true);
+        $value_kosten = get_post_meta($post->ID, '_cpm_project_kosten', true);
+        $value_proj_time = get_post_meta($post->ID, '_cpm_project_proj_time', true);
+        $value_status = get_post_meta($post->ID, '_cpm_project_status', true);
+
 
         // Display the form, using the current value.
 ?>
@@ -120,6 +130,21 @@ class metaboxProjects
             <?php _e('Link zur Seite', 'textdomain'); ?>
         </label>
         <input type="text" id="cpm_link" name="cpm_link" value="<?php echo esc_attr($value_link); ?>" size="30" />
+        <br><br>
+        <label for="cpm_kosten">
+            <?php _e('Gesamtkosten (vsl.)', 'textdomain'); ?>
+        </label>
+        <input type="text" id="cpm_kosten" name="cpm_kosten" value="<?php echo esc_attr($value_kosten); ?>" size="30" />
+        <br><br>
+        <label for="cpm_proj_time">
+            <?php _e('Realisierungszeitraum', 'textdomain'); ?>
+        </label>
+        <input type="text" id="cpm_proj_time" name="cpm_proj_time" value="<?php echo esc_attr($value_proj_time); ?>" size="30" />
+        <br><br>
+        <label for="cpm_status">
+            <?php _e('Status', 'textdomain'); ?>
+        </label>
+        <input type="text" id="cpm_status" name="cpm_status" value="<?php echo esc_attr($value_status); ?>" size="30" />
 <?php
     }
 }

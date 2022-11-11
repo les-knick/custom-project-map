@@ -1,6 +1,5 @@
 <?php
  global $wpdb;
-
  $locations = $wpdb->get_results(
      "SELECT
     p.ID,
@@ -8,10 +7,10 @@
     p.post_content,
     pmlat.meta_value AS pmlat,
     pmlong.meta_value AS pmlong
-     FROM wp_posts AS p
-    INNER JOIN wp_postmeta AS pmlat 
+     FROM ahcff_posts AS p
+    INNER JOIN ahcff_postmeta AS pmlat 
              ON p.ID = pmlat.post_id AND pmlat.meta_key = '_cpm_project_latitude'
-     INNER JOIN wp_postmeta AS pmlong 
+     INNER JOIN ahcff_postmeta AS pmlong 
              ON p.ID = pmlong.post_id AND pmlong.meta_key = '_cpm_project_longitude'
     WHERE post_status = 'publish' AND post_type = 'project'
     ");

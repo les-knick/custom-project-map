@@ -7,6 +7,18 @@
   display: flex;
 }
 
+.font-bold {
+  font-weight: bold !important;
+}
+
+@media only screen and (max-width: 800px) {
+  * {
+    hyphens: auto;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+}
 #map-container {
   position: fixed;
   left: 0;
@@ -25,64 +37,66 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+  cursor: pointer;
 }
-.marker--blau--digitalisierung {
+.marker--digitalisierung {
   background-image: url(../img/icons_blau/icon_digitalisierung_blau.svg);
 }
-.marker--blau--forschung {
+.marker--forschung {
   background-image: url(../img/icons_blau/icon_forschung_blau.svg);
 }
-.marker--blau--klimaschutz {
+.marker--klimaschutz {
   background-image: url(../img/icons_blau/icon_klimaschutz_blau.svg);
 }
-.marker--blau--landschaftspflege {
+.marker--landschaftspflege {
   background-image: url(../img/icons_blau/icon_landschaftspflege_blau.svg);
 }
-.marker--blau--fuersorge {
+.marker--fuersorge {
   background-image: url(../img/icons_blau/icon_oeffentliche-fuersorge_blau.svg);
 }
-.marker--blau--staedtebau {
+.marker--staedtebau {
   background-image: url(../img/icons_blau/icon_staedtebau_blau.svg);
 }
-.marker--blau--tourismus {
+.marker--tourismus {
   background-image: url(../img/icons_blau/icon_touristische-infrastruktur_blau.svg);
 }
-.marker--blau--verkehr {
+.marker--verkehr {
   background-image: url(../img/icons_blau/icon_verkehr_blau.svg);
 }
-.marker--blau--wirtschaft {
+.marker--wirtschaft {
   background-image: url(../img/icons_blau/icon_wirtschaft_blau.svg);
-}
-.marker--pink--digitalisierung {
-  background-image: url(../img/icons_pink/icon_digitalisierung.svg);
-}
-.marker--pink--forschung {
-  background-image: url(../img/icons_pink/icon_forschung.svg);
-}
-.marker--pink--klimaschutz {
-  background-image: url(../img/icons_pink/icon_klimaschutz.svg);
-}
-.marker--pink--landschaftspflege {
-  background-image: url(../img/icons_pink/icon_landschaftspflege.svg);
-}
-.marker--pink--fuersorge {
-  background-image: url(../img/icons_pink/icon_oeffentliche-fuersorge.svg);
-}
-.marker--pink--staedtebau {
-  background-image: url(../img/icons_pink/icon_staedtebau.svg);
-}
-.marker--pink--tourismus {
-  background-image: url(../img/icons_pink/icon_touristische-infrastruktur.svg);
-}
-.marker--pink--verkehr {
-  background-image: url(../img/icons_pink/icon_verkehr.svg);
-}
-.marker--pink--wirtschaft {
-  background-image: url(../img/icons_pink/icon_wirtschaft.svg);
 }
 .marker--active {
   width: 52px;
   height: 87px;
+  z-index: 1000000000000000100;
+}
+.marker--active.marker--digitalisierung {
+  background-image: url(../img/icons_pink/icon_digitalisierung.svg);
+}
+.marker--active.marker--forschung {
+  background-image: url(../img/icons_pink/icon_forschung.svg);
+}
+.marker--active.marker--klimaschutz {
+  background-image: url(../img/icons_pink/icon_klimaschutz.svg);
+}
+.marker--active.marker--landschaftspflege {
+  background-image: url(../img/icons_pink/icon_landschaftspflege.svg);
+}
+.marker--active.marker--fuersorge {
+  background-image: url(../img/icons_pink/icon_oeffentliche-fuersorge.svg);
+}
+.marker--active.marker--staedtebau {
+  background-image: url(../img/icons_pink/icon_staedtebau.svg);
+}
+.marker--active.marker--tourismus {
+  background-image: url(../img/icons_pink/icon_touristische-infrastruktur.svg);
+}
+.marker--active.marker--verkehr {
+  background-image: url(../img/icons_pink/icon_verkehr.svg);
+}
+.marker--active.marker--wirtschaft {
+  background-image: url(../img/icons_pink/icon_wirtschaft.svg);
 }
 .marker--hidden {
   display: none !important;
@@ -119,6 +133,7 @@
   justify-content: space-between;
   padding: 15px 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 #project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper {
   width: 90%;
@@ -131,6 +146,7 @@
 }
 #project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker {
   width: 24px;
+  min-width: 24px !important;
   height: 33px;
   display: block;
   margin-right: 15px;
@@ -138,59 +154,32 @@
   background-position: center;
   background-size: contain;
 }
-#project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--blau--digitalisierung {
+#project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--digitalisierung {
   background-image: url(../img/icons_blau/icon_digitalisierung_blau.svg);
 }
-#project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--blau--forschung {
+#project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--forschung {
   background-image: url(../img/icons_blau/icon_forschung_blau.svg);
 }
-#project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--blau--klimaschutz {
+#project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--klimaschutz {
   background-image: url(../img/icons_blau/icon_klimaschutz_blau.svg);
 }
-#project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--blau--landschaftspflege {
+#project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--landschaftspflege {
   background-image: url(../img/icons_blau/icon_landschaftspflege_blau.svg);
 }
-#project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--blau--fuersorge {
+#project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--fuersorge {
   background-image: url(../img/icons_blau/icon_oeffentliche-fuersorge_blau.svg);
 }
-#project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--blau--staedtebau {
+#project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--staedtebau {
   background-image: url(../img/icons_blau/icon_staedtebau_blau.svg);
 }
-#project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--blau--tourismus {
+#project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--tourismus {
   background-image: url(../img/icons_blau/icon_touristische-infrastruktur_blau.svg);
 }
-#project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--blau--verkehr {
+#project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--verkehr {
   background-image: url(../img/icons_blau/icon_verkehr_blau.svg);
 }
-#project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--blau--wirtschaft {
+#project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--wirtschaft {
   background-image: url(../img/icons_blau/icon_wirtschaft_blau.svg);
-}
-#project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--pink--digitalisierung {
-  background-image: url(../img/icons_pink/icon_digitalisierung.svg);
-}
-#project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--pink--forschung {
-  background-image: url(../img/icons_pink/icon_forschung.svg);
-}
-#project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--pink--klimaschutz {
-  background-image: url(../img/icons_pink/icon_klimaschutz.svg);
-}
-#project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--pink--landschaftspflege {
-  background-image: url(../img/icons_pink/icon_landschaftspflege.svg);
-}
-#project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--pink--fuersorge {
-  background-image: url(../img/icons_pink/icon_oeffentliche-fuersorge.svg);
-}
-#project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--pink--staedtebau {
-  background-image: url(../img/icons_pink/icon_staedtebau.svg);
-}
-#project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--pink--tourismus {
-  background-image: url(../img/icons_pink/icon_touristische-infrastruktur.svg);
-}
-#project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--pink--verkehr {
-  background-image: url(../img/icons_pink/icon_verkehr.svg);
-}
-#project-list-container .project-list-container__body .project-list-item .list-item-txt-wrapper .project-list-container__body--projects__item__marker--pink--wirtschaft {
-  background-image: url(../img/icons_pink/icon_wirtschaft.svg);
 }
 #project-list-container .project-list-container__body .project-list-item .project-list-container__body--projects__item__arrow {
   height: 25px;
@@ -199,12 +188,7 @@
   background-size: contain;
   margin-left: 15px;
   display: none;
-}
-#project-list-container .project-list-container__body .project-list-item .project-list-container__body--projects__item__arrow--blau {
   background-image: url(../img/icons_blau/arrow-right-blue.svg);
-}
-#project-list-container .project-list-container__body .project-list-item .project-list-container__body--projects__item__arrow--pink {
-  background-image: url(../img/icons_pink/arrow-right-pink.svg);
 }
 #project-list-container .project-list-container__body .project-list-item:hover .project-list-container__body--projects__item__arrow {
   display: block;
@@ -232,12 +216,6 @@
   font-weight: bold;
   margin-top: 20px;
   margin-bottom: 10px;
-  color: #233787;
-}
-#project-list-container .project-list-container__body .project-list-container__body--filter__form label:nth-child(3) input[name=typefilter] + p {
-  color: #FF2D64;
-}
-#project-list-container .project-list-container__body .project-list-container__body--filter__form label:nth-child(4) input[name=typefilter] + p {
   color: #233787;
 }
 #project-list-container .project-list-container__body .project-list-container__body--filter__form label {
@@ -318,37 +296,50 @@
 @media only screen and (max-width: 800px) {
   #project-list-container {
     width: 100vw;
-    height: 75vh;
+    height: 75%;
     top: unset;
     bottom: 0;
     border-radius: 33px 33px 0 0;
     transform: translateY(calc(100% - 40px));
+    padding: 0 16px;
   }
   #project-list-container.project-list-container--active {
     transform: translateY(0);
   }
 
   #project-list-container.project-list-container--active + .mobile-toggle {
-    top: calc(25vh - 80px);
+    top: 25%;
+  }
+  #project-list-container.project-list-container--active + .mobile-toggle .mobile-toggle__handle img {
+    transform: rotate(90deg);
   }
 
   .mobile-toggle {
     position: fixed;
     width: 100vw;
     left: 0;
-    top: calc(100vh - 120px);
+    bottom: 0;
     z-index: 9999999999;
-    height: 80px;
+    height: 40px;
   }
   .mobile-toggle .mobile-toggle__handle {
-    height: 3px;
-    width: 20%;
-    background-color: black;
-    margin-top: 10px;
-    margin-right: 40vw;
+    height: 40px;
+    width: 40px;
+    background-color: #FF2D64;
+    margin-top: -20px;
+    margin-right: calc(50% - 20px);
     margin-left: auto;
-    border-radius: 2px;
+    border-radius: 50%;
     z-index: 1000000000000000100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mobile-toggle .mobile-toggle__handle img {
+    width: 14px;
+    height: 14px;
+    object-fit: contain;
+    transform: rotate(-90deg);
   }
 
   .project-content.project-list-container__body--projects__item__content {
@@ -369,6 +360,9 @@
   #project-list-container.project-list-container--active + .mobile-toggle {
     right: 50vw;
   }
+  #project-list-container.project-list-container--active + .mobile-toggle .mobile-toggle__handle img {
+    transform: rotate(180deg);
+  }
 
   .mobile-toggle {
     position: fixed;
@@ -379,13 +373,21 @@
     width: 40px;
   }
   .mobile-toggle .mobile-toggle__handle {
-    width: 3px;
-    height: 20%;
-    background-color: black;
-    margin-top: 40vh;
-    margin-right: 10px;
-    margin-left: auto;
-    border-radius: 2px;
+    height: 40px;
+    width: 40px;
+    background-color: #FF2D64;
+    margin-top: calc(50vh - 20px);
+    margin-left: 20px;
+    border-radius: 50%;
+    z-index: 1000000000000000100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mobile-toggle .mobile-toggle__handle img {
+    width: 14px;
+    height: 14px;
+    object-fit: contain;
   }
 
   .project-content.project-list-container__body--projects__item__content {
@@ -454,6 +456,7 @@
 }
 .project-content .project-content__img-wrapper img {
   max-height: 50vh;
+  min-height: 200px;
   object-fit: cover;
 }
 .project-content .project-content__img-wrapper .cmp__go-back {
@@ -465,18 +468,35 @@
   position: absolute;
   top: 20px;
   left: 40px;
+  cursor: pointer;
   transform: rotate(180deg);
+}
+@media only screen and (max-width: 800px) {
+  .project-content .project-content__img-wrapper .cmp__go-back {
+    left: 16px;
+  }
 }
 .project-content .project-content__container {
   padding: 40px;
+  cursor: auto;
+}
+@media only screen and (max-width: 800px) {
+  .project-content .project-content__container {
+    padding: 16px;
+    padding-top: 40px;
+  }
 }
 .project-content .project-content__container .project-content__container__more-link {
   margin-top: 40px;
   display: block;
 }
-.project-content .project-content__container h1.h2 {
+.project-content .project-content__container h1.h3 {
   margin-top: 20px;
   color: #233787;
+  margin-bottom: 50px;
+}
+.project-content .project-content__container p {
+  margin-bottom: 10px;
 }
 
 .counter-block {
@@ -516,6 +536,47 @@
   left: calc((100vw - 100%) / -2);
   width: 100vw;
   background-color: #233787;
+}
+
+.cluster-point {
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  border-radius: 50%;
+  border: 3px solid #233787;
+  position: absolute;
+  z-index: 999;
+  color: #233787;
+  text-align: center;
+  padding-top: 1px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  cursor: pointer;
+}
+
+#map-container {
+  /*  &.high-zoom {
+      .cluster-point {
+          display: none;
+      }
+      .marker--clustered {
+          display: block;
+      }
+  }
+  &.low-zoom {
+      .cluster-point {
+          display: block;
+          &--declustered {
+              display: none;
+          }
+      }
+
+  } */
+}
+#map-container .cluster-point--declustered {
+  display: none;
+}
+#map-container .marker--clustered {
+  display: none;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -5,67 +5,65 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    &--blau {
-        &--digitalisierung {
-            background-image: url(../img/icons_blau/icon_digitalisierung_blau.svg);
-        }
-        &--forschung {
-            background-image: url(../img/icons_blau/icon_forschung_blau.svg);
-        }
-        &--klimaschutz {
-            background-image: url(../img/icons_blau/icon_klimaschutz_blau.svg);
-        }
-        &--landschaftspflege {
-            background-image: url(../img/icons_blau/icon_landschaftspflege_blau.svg);
-        }
-        &--fuersorge {
-            background-image: url(../img/icons_blau/icon_oeffentliche-fuersorge_blau.svg);
-        }
-        &--staedtebau {
-            background-image: url(../img/icons_blau/icon_staedtebau_blau.svg);
-        }
-        &--tourismus {
-            background-image: url(../img/icons_blau/icon_touristische-infrastruktur_blau.svg);
-        }
-        &--verkehr {
-            background-image: url(../img/icons_blau/icon_verkehr_blau.svg);
-        }
-        &--wirtschaft {
-            background-image: url(../img/icons_blau/icon_wirtschaft_blau.svg);
-        }
+    cursor: pointer;
+    &--digitalisierung {
+        background-image: url(../img/icons_blau/icon_digitalisierung_blau.svg);
     }
-    &--pink {
-        &--digitalisierung {
-            background-image: url(../img/icons_pink/icon_digitalisierung.svg);
-        }
-        &--forschung {
-            background-image: url(../img/icons_pink/icon_forschung.svg);
-        }
-        &--klimaschutz {
-            background-image: url(../img/icons_pink/icon_klimaschutz.svg);
-        }
-        &--landschaftspflege {
-            background-image: url(../img/icons_pink/icon_landschaftspflege.svg);
-        }
-        &--fuersorge {
-            background-image: url(../img/icons_pink/icon_oeffentliche-fuersorge.svg);
-        }
-        &--staedtebau {
-            background-image: url(../img/icons_pink/icon_staedtebau.svg);
-        }
-        &--tourismus {
-            background-image: url(../img/icons_pink/icon_touristische-infrastruktur.svg);
-        }
-        &--verkehr {
-            background-image: url(../img/icons_pink/icon_verkehr.svg);
-        }
-        &--wirtschaft {
-            background-image: url(../img/icons_pink/icon_wirtschaft.svg);
-        }
+    &--forschung {
+        background-image: url(../img/icons_blau/icon_forschung_blau.svg);
+    }
+    &--klimaschutz {
+        background-image: url(../img/icons_blau/icon_klimaschutz_blau.svg);
+    }
+    &--landschaftspflege {
+        background-image: url(../img/icons_blau/icon_landschaftspflege_blau.svg);
+    }
+    &--fuersorge {
+        background-image: url(../img/icons_blau/icon_oeffentliche-fuersorge_blau.svg);
+    }
+    &--staedtebau {
+        background-image: url(../img/icons_blau/icon_staedtebau_blau.svg);
+    }
+    &--tourismus {
+        background-image: url(../img/icons_blau/icon_touristische-infrastruktur_blau.svg);
+    }
+    &--verkehr {
+        background-image: url(../img/icons_blau/icon_verkehr_blau.svg);
+    }
+    &--wirtschaft {
+        background-image: url(../img/icons_blau/icon_wirtschaft_blau.svg);
     }
     &--active {
         width: 52px;
         height: 87px;
+        z-index: 999999999999999999;
+        &.marker--digitalisierung {
+            background-image: url(../img/icons_pink/icon_digitalisierung.svg);
+        }
+        &.marker--forschung {
+            background-image: url(../img/icons_pink/icon_forschung.svg);
+        }
+        &.marker--klimaschutz {
+            background-image: url(../img/icons_pink/icon_klimaschutz.svg);
+        }
+        &.marker--landschaftspflege {
+            background-image: url(../img/icons_pink/icon_landschaftspflege.svg);
+        }
+        &.marker--fuersorge {
+            background-image: url(../img/icons_pink/icon_oeffentliche-fuersorge.svg);
+        }
+        &.marker--staedtebau {
+            background-image: url(../img/icons_pink/icon_staedtebau.svg);
+        }
+        &.marker--tourismus {
+            background-image: url(../img/icons_pink/icon_touristische-infrastruktur.svg);
+        }
+        &.marker--verkehr {
+            background-image: url(../img/icons_pink/icon_verkehr.svg);
+        }
+        &.marker--wirtschaft {
+            background-image: url(../img/icons_pink/icon_wirtschaft.svg);
+        }
     }
     &--hidden {
         display: none!important;

@@ -3,7 +3,7 @@
 Plugin Name:  Custom Project Map
 Plugin URI:   https://knick.design
 Description:  Plugin for Custom Project Maps. Extends the wp backend.
-Version:      0.9.01
+Version:      1.0.0
 Author:       Knick Design - Lea Stocker
 Author URI:   https://knick.design
 License:      GPL2
@@ -168,7 +168,7 @@ function cpm_counter_shortcode($attr)
     $counter_einwohnerinnen = get_post_meta($args['id'], '_cpm_counter_einwohnerinnen', true);
     $counter_mittel = get_post_meta($args['id'], '_cpm_counter_mittel', true);
 
-    $message = "<div class='counter-block'>
+    $message = "<div class='counter-block' id='counter-block'>
     <div class='counter-block__container flex'>
         <div class='counter-block__container__inner counter-block__container__inner--projekte'>
             <div class='counter-block__container__inner__content counter-block__container__inner__content--icon'><img src='" . site_url() . "/wp-content/plugins/custom-project-map/assets/img/icons_counter/icon-projekte.svg'></div>
@@ -195,7 +195,9 @@ function cpm_counter_shortcode($attr)
     </div>
 </div>";
     $message .= "  <script> 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('scroll', function() {
+        var counterBlock = document.querySelector('#counter-block');
+        if(isInViewport(counterBlock)){
         const counters = document.querySelectorAll('.counter-block__container__inner__content--number');
 const speed = 200;
 
@@ -216,6 +218,7 @@ counters.forEach( counter => {
    
    animate();
 });
+}
       });
     </script>";
     return $message;
@@ -267,7 +270,16 @@ function cpm_map_shortcode($attr)
         addMarkersToMap(geojsonTest);
     }).catch (function (error) {
         console.log ('error: ' + error);
-    }); ";
+    }); 
+    map.on('load', () => {
+        waitForMapLoadedToCluster(map);
+    });
+    map.on('zoom', () => {
+        deleteClusterMarkers();
+        clusterMarkers(map);
+        toggleMarkersOnZoom(map);
+    });
+    ";
 
     $addMarkerToMap_script = "function addMarkersToMap(geojson) {";
     $addMarkerToMap_script .= "geojson.features.forEach(function (marker) {
@@ -277,12 +289,9 @@ function cpm_map_shortcode($attr)
         var element_type = marker.properties.typ[0][0].name;
         var element_theme = marker.properties.thema[0][0].name;
         el.dataset.id = element_id;
-        if(element_type == 'Landesprojekt'){
-            element_class += '--blau';
-        }
-        else{
-            element_class += '--pink';
-        }
+        el.dataset.lnglat = marker.geometry.coordinates;
+        el.dataset.lng = marker.geometry.coordinates[0];
+        el.dataset.lat = marker.geometry.coordinates[1];
         if(element_theme == 'Digitalisierung, Breitband- und Mobilfunkinfrastruktur'){
             element_class += '--digitalisierung';
         }
@@ -416,6 +425,7 @@ function cpm_map_shortcode($attr)
         $display_posts_script .= "<p>Keine Beiträge</p>";
     endif;
     wp_reset_postdata();
+    $link_to_arrow = plugin_dir_url( __FILE__ ).'/assets/img/triangle.svg';
 
     $list_script = "<div id='project-list-container' class='project-list-container'>
     <div class='project-list-container__head'>
@@ -428,7 +438,7 @@ function cpm_map_shortcode($attr)
     <h2 class='project-list-container__body__headline project-list-container__body__headline--with-line'>Filter</h2>
     <form action='" . $home_url . "/wp-admin/admin-ajax.php' method='POST' id='filter' class='project-list-container__body--filter__form'>
     <h3 class='project-list-container__body__headline'>Förderungen</h3>" . $display_types_script .
-        "<h3 class='project-list-container__body__headline'>Themen</h3>" . $display_themes_script .
+        "<h3 class='project-list-container__body__headline'>Fördergegenstand</h3>" . $display_themes_script .
         "<input type='hidden' name='action' value='myfilter'>
     <button style='display: none;'>Filter</button>
     </form>
@@ -439,7 +449,7 @@ function cpm_map_shortcode($attr)
     </div>
     </div>
     </div>
-    <div class='mobile-toggle' onclick='toggleProjectList()'><div class='mobile-toggle__handle'></div></div>";
+    <div class='mobile-toggle' onclick='toggleProjectList()'><div class='mobile-toggle__handle'><img src='" . $link_to_arrow . "'></div></div>";
 
 
     // Things that you want to do.
