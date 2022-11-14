@@ -91,6 +91,27 @@ class metaboxProjects
         update_post_meta($post_id, '_cpm_project_kosten', $kosten);
         update_post_meta($post_id, '_cpm_project_proj_time', $proj_time);
         update_post_meta($post_id, '_cpm_project_status', $status);
+
+        $old = get_post_meta($post_id, '_cpm_project_facts', true);
+        $new = array();
+
+
+        $labels = $_POST['label'];
+        $values = $_POST['value'];
+
+        $count = count($labels);
+
+        for ($i = 0; $i < $count; $i++) {
+            if ($labels[$i] != '') :
+                $new[$i]['label'] = stripslashes(strip_tags($labels[$i]));
+                $new[$i]['value'] = stripslashes(strip_tags($values[$i]));
+            endif;
+        }
+
+        if (!empty($new) && $new != $old)
+            update_post_meta($post_id, '_cpm_project_facts', $new);
+        elseif (empty($new) && $old)
+            delete_post_meta($post_id, '_cpm_project_facts', $old);
     }
 
 
@@ -112,6 +133,8 @@ class metaboxProjects
         $value_kosten = get_post_meta($post->ID, '_cpm_project_kosten', true);
         $value_proj_time = get_post_meta($post->ID, '_cpm_project_proj_time', true);
         $value_status = get_post_meta($post->ID, '_cpm_project_status', true);
+
+        $repeatable_fields = get_post_meta($post->ID, '_cpm_project_facts', true);
 
 
         // Display the form, using the current value.
@@ -145,7 +168,63 @@ class metaboxProjects
             <?php _e('Status', 'textdomain'); ?>
         </label>
         <input type="text" id="cpm_status" name="cpm_status" value="<?php echo esc_attr($value_status); ?>" size="30" />
+
+        <script>
+                    jQuery(document).ready(function($) {
+                        $('#js-add').on('click', function() {
+                            var $row = $('.empty-row.screen-reader-text').clone(true);
+                            $row.removeClass('empty-row screen-reader-text');
+                            $('#js-products').append($row);
+                            return false;
+                        });
+        
+                        $('.js-remove').on('click', function() {
+                            $(this).parent().remove();
+                            return false;
+                        });
+        
+                        $('#js-products').sortable({
+                            opacity: 0.6,
+                            revert: true,
+                            cursor: 'move',
+                            handle: '.js-sort'
+                        });
+                    });
+                </script>
+                <div class="experiment-metabox-container">
+                    <br><br><h4>Projektinformationen</h4>
+                    <ul id="js-products">
+                    <li class="product empty-row screen-reader-text">
+		<a class="button js-remove" title="' . esc_attr(__('Click to remove the element', 'your_text_domain')) . '">-</a>
+		<input type="text" name="label[]" value="" />
+        <input type="text" name="value[]" value="" />
+		<a class="js-sort" title="' . esc_attr(__('Click and drag to sort', 'your_text_domain')) . '">|||</a>
+	</li>
+                        <?php
+                        if ($repeatable_fields) {
+                            foreach ($repeatable_fields as $field) {
+                                echo $this->cpm_get_data_row($field['label'], $field['value'], false);
+                            }
+                        } else {
+                            echo $this->cpm_get_data_row(null, true); // empty product (no args)
+                        }
+        
+                        echo $this->cpm_get_data_row(null, true); // empty hidden one for jQuery
+                        ?>
+                    </ul>
+                    <a id="js-add" class="button">Zeile hinzufügen</a>
+                </div>
 <?php
+    }
+    function cpm_get_data_row($valueLabel, $valueValue, $isHidden = false)
+    {
+        return '
+	<li class="product ' . (!empty($isHidden) ? esc_attr('empty-row screen-reader-text') : esc_attr('')) . '">
+		<a class="button js-remove" title="' . esc_attr(__('Click to remove the element', 'your_text_domain')) . '">-</a>
+		<input type="text" name="label[]" value="' . (!empty($valueLabel) ? esc_attr($valueLabel) : esc_attr('')) . '" />
+        <input type="text" name="value[]" value="' . (!empty($valueValue) ? esc_attr($valueValue) : esc_attr('')) . '" />
+		<a class="js-sort" title="' . esc_attr(__('Click and drag to sort', 'your_text_domain')) . '">|||</a>
+	</li>';
     }
 }
 ?>

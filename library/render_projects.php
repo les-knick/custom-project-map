@@ -19,6 +19,7 @@ $project_kosten = get_post_meta($project_id, '_cpm_project_kosten', true);
 $project_kosten = number_format($project_kosten, 0, ',', '.');
 $project_proj_time = get_post_meta($project_id, '_cpm_project_proj_time', true);
 $project_status = get_post_meta($project_id, '_cpm_project_status', true);
+$project_facts = get_post_meta($project_id, '_cpm_project_facts', true);
 
 $content_post = get_post($project_id);
 $content = $content_post->post_content;
@@ -79,7 +80,14 @@ $display_posts_script .= "<div class='cmp__go-back' onclick='toggleActiveStateFr
 </div>
 <div class='project-content__container'>
 <h1 class='h3'>" . $project_title . "</h1>";
-if( $project_kosten ){
+if($project_facts){
+    foreach ( $project_facts as $fact ) { 
+        if ($fact['label'] && $fact['value']){
+            $display_posts_script .= "<p><span class='font-bold'>" . $fact['label'] . ": </span>" . $fact['value'] . "</p><br>";
+        }
+    }
+}
+/* if( $project_kosten ){
 $display_posts_script .= "<p><span class='font-bold'>Gesamtkosten (vsl.): </span>" . $project_kosten . "€</p>";
 }
 if( $project_proj_time ){
@@ -89,7 +97,7 @@ $display_posts_script .= "<p><span class='font-bold'>Realisierungszeitraum (vsl.
 }
 if( $project_status ){
 $display_posts_script .= "<p><span class='font-bold'>Status: </span>" . $project_status . "</p><br>";
-}
+} */
 $display_posts_script .= "<p>" . $project_content . "</p>";
 if( $project_link ){
 $display_posts_script .= "<a class='project-content__container__more-link' href='" . $project_link . "'>Mehr Erfahren</a>";

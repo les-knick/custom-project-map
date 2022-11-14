@@ -118,6 +118,7 @@ if (is_admin()) {
     add_action('load-post-new.php', 'call_metaboxProjects');
 }
 
+
 // Metabox Maps
 
 /**
@@ -134,6 +135,7 @@ if (is_admin()) {
     add_action('load-post-new.php', 'call_metaboxMaps');
 }
 
+
 // Metabox Projects
 
 /**
@@ -149,6 +151,8 @@ if (is_admin()) {
     add_action('load-post.php',     'call_metaboxCounter');
     add_action('load-post-new.php', 'call_metaboxCounter');
 }
+
+
 
 
 

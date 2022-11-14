@@ -7,7 +7,7 @@
     p.post_content,
     pmlat.meta_value AS pmlat,
     pmlong.meta_value AS pmlong
-     FROM ahcff_posts AS p
+     FROM ahcff_posts AS p /* CHANGE IF SITE IS MOVED */
     INNER JOIN ahcff_postmeta AS pmlat 
              ON p.ID = pmlat.post_id AND pmlat.meta_key = '_cpm_project_latitude'
      INNER JOIN ahcff_postmeta AS pmlong 
