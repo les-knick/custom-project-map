@@ -87,7 +87,8 @@ if($project_facts){
         }
     }
 }
-/* if( $project_kosten ){
+/* SINGLE FACT FIELDS, ONLY FOR SAVE REASONS
+if( $project_kosten ){
 $display_posts_script .= "<p><span class='font-bold'>Gesamtkosten (vsl.): </span>" . $project_kosten . "€</p>";
 }
 if( $project_proj_time ){

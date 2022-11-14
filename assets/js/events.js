@@ -6,7 +6,14 @@ function toggleActiveState(thisElement) {
     theMarker.classList.toggle('marker--active');
     content.classList.toggle('project-content--disabled');
     var projectListContainer = document.getElementById('project-list-container');
-    projectListContainer.classList.toggle('project-list-container--no-scroll');
+    if (projectListContainer.classList.contains('project-list-container--no-scroll')) {
+        projectListContainer.classList.remove('project-list-container--no-scroll');
+        projectListContainer.scrollTop = projectListContainer.dataset.scrolltop;
+    } else {
+        var scrollPositionProjectListContainer = projectListContainer.scrollTop;
+        projectListContainer.dataset.scrolltop = scrollPositionProjectListContainer;
+        projectListContainer.classList.add('project-list-container--no-scroll');
+    }
     /* if (projectListContainer.classList.contains("project-list-container--no-scroll")) {
         projectListContainer.classList.remove('project-list-container--no-scroll');
     } else {
@@ -24,7 +31,15 @@ function toggleActiveStateFromContent(thisElement) {
     theMarker.classList.toggle('marker--active');
     content.classList.toggle('project-content--disabled');
     var projectListContainer = document.getElementById('project-list-container');
-    projectListContainer.classList.toggle('project-list-container--no-scroll');
+    if (projectListContainer.classList.contains('project-list-container--no-scroll')) {
+        projectListContainer.classList.remove('project-list-container--no-scroll');
+        projectListContainer.scrollTop = projectListContainer.dataset.scrolltop;
+    } else {
+        var scrollPositionProjectListContainer = projectListContainer.scrollTop;
+        projectListContainer.dataset.scrolltop = scrollPositionProjectListContainer;
+        projectListContainer.classList.add('project-list-container--no-scroll');
+    }
+
     /* if (projectListContainer.classList.contains("project-list-container--no-scroll")) {
         projectListContainer.classList.remove('project-list-container--no-scroll');
     } else {
@@ -55,7 +70,14 @@ function toggleActiveStateList(thisElement) {
     element.classList.toggle('marker--active');
     content.classList.toggle('project-content--disabled');
     projectListContainer.classList.add('project-list-container--active');
-    projectListContainer.classList.toggle('project-list-container--no-scroll');
+    if (projectListContainer.classList.contains('project-list-container--no-scroll')) {
+        projectListContainer.classList.remove('project-list-container--no-scroll');
+        projectListContainer.scrollTop = projectListContainer.dataset.scrolltop;
+    } else {
+        var scrollPositionProjectListContainer = projectListContainer.scrollTop;
+        projectListContainer.dataset.scrolltop = scrollPositionProjectListContainer;
+        projectListContainer.classList.add('project-list-container--no-scroll');
+    }
     /* if (projectListContainer.classList.contains("project-list-container--no-scroll")) {
         projectListContainer.classList.remove('project-list-container--no-scroll');
     } else {
