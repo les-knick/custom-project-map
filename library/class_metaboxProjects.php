@@ -153,21 +153,6 @@ class metaboxProjects
             <?php _e('Link zur Seite', 'textdomain'); ?>
         </label>
         <input type="text" id="cpm_link" name="cpm_link" value="<?php echo esc_attr($value_link); ?>" size="30" />
-        <br><br>
-        <label for="cpm_kosten">
-            <?php _e('Gesamtkosten (vsl.)', 'textdomain'); ?>
-        </label>
-        <input type="text" id="cpm_kosten" name="cpm_kosten" value="<?php echo esc_attr($value_kosten); ?>" size="30" />
-        <br><br>
-        <label for="cpm_proj_time">
-            <?php _e('Realisierungszeitraum', 'textdomain'); ?>
-        </label>
-        <input type="text" id="cpm_proj_time" name="cpm_proj_time" value="<?php echo esc_attr($value_proj_time); ?>" size="30" />
-        <br><br>
-        <label for="cpm_status">
-            <?php _e('Status', 'textdomain'); ?>
-        </label>
-        <input type="text" id="cpm_status" name="cpm_status" value="<?php echo esc_attr($value_status); ?>" size="30" />
 
         <script>
                     jQuery(document).ready(function($) {
