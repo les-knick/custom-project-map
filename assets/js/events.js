@@ -3,6 +3,9 @@ function toggleActiveState(thisElement) {
     var listId = element.dataset.id;
     var content = element.querySelector('.project-content');
     var theMarker = document.querySelector('[data-id="' + listId + '"]');
+    if (!theMarker.classList.contains('marker--active')) {
+        theMarker.classList.remove('marker--clustered');
+    }
     theMarker.classList.toggle('marker--active');
     content.classList.toggle('project-content--disabled');
     var projectListContainer = document.getElementById('project-list-container');
@@ -28,6 +31,9 @@ function toggleActiveStateFromContent(thisElement) {
     var listId = element.dataset.id;
     var content = element.querySelector('.project-content');
     var theMarker = document.querySelector('[data-id="' + listId + '"]');
+    if (!theMarker.classList.contains('marker--active')) {
+        theMarker.classList.remove('marker--clustered');
+    }
     theMarker.classList.toggle('marker--active');
     content.classList.toggle('project-content--disabled');
     var projectListContainer = document.getElementById('project-list-container');
@@ -67,6 +73,9 @@ function toggleActiveStateList(thisElement) {
     });
     var theListItem = document.querySelector('.project-list-item[data-id="' + markerId + '"]');
     var content = theListItem.querySelector('.project-content');
+    if (!element.classList.contains('marker--active')) {
+        element.classList.remove('marker--clustered');
+    }
     element.classList.toggle('marker--active');
     content.classList.toggle('project-content--disabled');
     projectListContainer.classList.add('project-list-container--active');
