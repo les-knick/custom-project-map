@@ -256,3 +256,49 @@ function derenderLonelyClusterBoys(clusterPoints) {
         }
     });
 }
+
+// Counter function
+
+var counterAnimated = 0;
+
+function counterAnimation() {
+
+    var counterBlock = document.querySelector('#counter-block');
+    if (isInViewport(counterBlock) && counterAnimated == 0) {
+        counterAnimationOnce();
+        counterAnimated = 1;
+    }
+}
+
+function counterAnimationOnce() {
+    const counters = document.querySelectorAll('.counter-block__container__inner__content--number');
+    const speed = 200;
+
+    counters.forEach(counter => {
+        const animate = () => {
+            const value = +counter.getAttribute('counterval');
+            const data = +counter.innerText;
+
+            const time = value / speed;
+            if (data < value) {
+                counter.innerText = Math.ceil(data + time);
+                setTimeout(animate, 1);
+            } else {
+                counter.innerText = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            }
+
+        }
+
+        animate();
+    });
+}
+
+function isInViewport(el) {
+    var rect = el.getBoundingClientRect();
+
+    return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
+    );
+}
