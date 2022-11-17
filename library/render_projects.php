@@ -87,7 +87,7 @@ if($project_facts){
         }
     }
 }
-/* SINGLE FACT FIELDS, ONLY FOR SAVE REASONS
+
 if( $project_kosten ){
 $display_posts_script .= "<p><span class='font-bold'>Gesamtkosten (vsl.): </span>" . $project_kosten . "€</p>";
 }
@@ -98,7 +98,7 @@ $display_posts_script .= "<p><span class='font-bold'>Realisierungszeitraum (vsl.
 }
 if( $project_status ){
 $display_posts_script .= "<p><span class='font-bold'>Status: </span>" . $project_status . "</p><br>";
-} */
+} 
 $display_posts_script .= "<p>" . $project_content . "</p>";
 if( $project_link ){
 $display_posts_script .= "<a class='project-content__container__more-link' href='" . $project_link . "'>Mehr Erfahren</a>";
