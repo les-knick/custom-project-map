@@ -76,17 +76,29 @@ class metaboxCounter
 
         /* OK, it's safe for us to save the data now. */
 
-        // Sanitize the user input.
-        $projekte = sanitize_text_field($_POST['cpm_projekt']);
-        $zuwendungen = sanitize_text_field($_POST['cpm_zuwendungen']);
-        $einwohnerinnen = sanitize_text_field($_POST['cpm_einwohnerinnen']);
-        $mittel = sanitize_text_field($_POST['cpm_mittel']);
+        // Counter Repeater
+        $old = get_post_meta($post_id, '_cpm_counter_items', true);
+        $new = array();
 
-        // Update the meta field.
-        update_post_meta($post_id, '_cpm_counter_projekt', $projekte);
-        update_post_meta($post_id, '_cpm_counter_zuwendungen', $zuwendungen);
-        update_post_meta($post_id, '_cpm_counter_einwohnerinnen', $einwohnerinnen);
-        update_post_meta($post_id, '_cpm_counter_mittel', $mittel);
+
+        $labels = $_POST['label'];
+        $values = $_POST['value'];
+        $icons = $_POST['icon'];
+
+        $count = count($labels);
+
+        for ($i = 0; $i < $count; $i++) {
+            if ($labels[$i] != '') :
+                $new[$i]['label'] = stripslashes(strip_tags($labels[$i]));
+                $new[$i]['value'] = stripslashes(strip_tags($values[$i]));
+                $new[$i]['icon'] = stripslashes(strip_tags($icons[$i]));
+            endif;
+        }
+
+        if (!empty($new) && $new != $old)
+            update_post_meta($post_id, '_cpm_counter_items', $new);
+        elseif (empty($new) && $old)
+            delete_post_meta($post_id, '_cpm_counter_items', $old);
     }
 
 
@@ -102,33 +114,67 @@ class metaboxCounter
         wp_nonce_field('cpm_counter_inner_custom_box', 'cpm_counter_inner_custom_box_nonce');
 
         // Use get_post_meta to retrieve an existing value from the database.
-        $value_projekte = get_post_meta($post->ID, '_cpm_counter_projekt', true);
-        $value_zuwendungen = get_post_meta($post->ID, '_cpm_counter_zuwendungen', true);
-        $value_einwohnerinnen = get_post_meta($post->ID, '_cpm_counter_einwohnerinnen', true);
-        $value_mittel = get_post_meta($post->ID, '_cpm_counter_mittel', true);
+        $repeatable_counter_items = get_post_meta($post->ID, '_cpm_counter_items', true);
 
         // Display the form, using the current value.
-?>
-        <label for="cpm_projekt">
-            <?php _e('Bewilligte Projekte', 'textdomain'); ?>
-        </label>
-        <input type="text" id="cpm_projekt" name="cpm_projekt" value="<?php echo esc_attr($value_projekte); ?>" size="30" />
-        <br><br>
-        <label for="cpm_zuwendungen">
-            <?php _e('Bewilligte Zuwendungen (in T€)', 'textdomain'); ?>
-        </label>
-        <input type="text" id="cpm_zuwendungen" name="cpm_zuwendungen" value="<?php echo esc_attr($value_zuwendungen); ?>" size="30" />
-        <br><br>
-        <label for="cpm_einwohnerinnen">
-            <?php _e('Einwohnerinnen und Einwohner', 'textdomain'); ?>
-        </label>
-        <input type="text" id="cpm_einwohnerinnen" name="cpm_einwohnerinnen" value="<?php echo esc_attr($value_einwohnerinnen); ?>" size="30" />
-        <br><br>
-        <label for="cpm_mittel">
-            <?php _e('Bereitgestellte Mittel Für den Strukturwandel (in T€)', 'textdomain'); ?>
-        </label>
-        <input type="text" id="cpm_mittel" name="cpm_mittel" value="<?php echo esc_attr($value_mittel); ?>" size="30" />
+        ?>
+        <script>
+        jQuery(document).ready(function($) {
+            $('#js-add-item').on('click', function() {
+                var $row = $('.empty-row.screen-reader-text.row-items').clone(true);
+                $row.removeClass('empty-row screen-reader-text');
+                $('#js-items').append($row);
+                return false;
+            });
+
+            $('.js-remove-item').on('click', function() {
+                $(this).parent().remove();
+                return false;
+            });
+
+            $('#js-facts').sortable({
+                opacity: 0.6,
+                revert: true,
+                cursor: 'move',
+                handle: '.js-sort'
+            });
+        });
+        </script>
+
+<div class="experiment-metabox-container">
+            <h4>Counter</h4>
+            <p>Der erste Wert in den Zeilen ist die Beschriftung (bsp.: Bewilligte Projekte), der Zweite der Wert (bsp.: 283), der dritte Wert beinhaltet die URL zum Bild (bsp.: https://sas-sachsen.dev.local:8890/wp-content/uploads/2022/10/2022-09-27_Revierstammtisch_Rackwitz_06.png). Die URL ist dem Datei-URL Feld des Bildes in der Mediathek zu entnehmen.</p>
+            <ul id="js-items">
+                <li class="product empty-row screen-reader-text row-items">
+                    <a class="button js-remove-item" title="' . esc_attr(__('Click to remove the element', 'your_text_domain')) . '">-</a>
+                    <input type="text" name="label[]" value="" />
+                    <input type="text" name="value[]" value="" />
+                    <input type="text" name="icon[]" value="" />
+                    <a class="js-sort" title="' . esc_attr(__('Click and drag to sort', 'your_text_domain')) . '">|||</a>
+                </li>
+                <?php
+                if ($repeatable_counter_items) {
+                    foreach ($repeatable_counter_items as $counter_item) {
+                        echo $this->cpm_get_data_row($counter_item['label'], $counter_item['value'], $counter_item['icon'], false, "label", "value", "icon", "item");
+                    }
+                }
+                ?>
+            </ul>
+            <a id="js-add-item" class="button">Zeile hinzufügen</a>
+        </div>
+       
 <?php
-    }
+}
+function cpm_get_data_row($valueFirst, $valueSecond, $valueThird, $isHidden = false, $fieldNameFirst, $fieldNameSecond, $fieldNameThird, $type)
+{
+    return '
+<li class="product row-' . $type . 's ' . ($isHidden ? esc_attr('empty-row screen-reader-text') : esc_attr('')) . '">
+    <a class="button js-remove-' . $type . '" title="' . esc_attr(__('Click to remove the element', 'your_text_domain')) . '">-</a>
+    <input type="text" name="' . $fieldNameFirst . '[]" value="' . (!empty($valueFirst) ? esc_attr($valueFirst) : esc_attr('')) . '" />
+    <input type="text" name="' . $fieldNameSecond . '[]" value="' . (!empty($valueSecond) ? esc_attr($valueSecond) : esc_attr('')) . '" />
+    <input type="text" name="' . $fieldNameThird . '[]" value="' . (!empty($valueThird) ? esc_attr($valueThird) : esc_attr('')) . '" />
+    <a class="js-sort" title="' . esc_attr(__('Click and drag to sort', 'your_text_domain')) . '">|||</a>
+</li>';
+}
 }
 ?>

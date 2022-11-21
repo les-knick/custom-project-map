@@ -167,36 +167,25 @@ function cpm_counter_shortcode($attr)
 
     ), $attr);
 
-    $counter_projekte = get_post_meta($args['id'], '_cpm_counter_projekt', true);
-    $counter_zuwendungen = get_post_meta($args['id'], '_cpm_counter_zuwendungen', true);
-    $counter_einwohnerinnen = get_post_meta($args['id'], '_cpm_counter_einwohnerinnen', true);
-    $counter_mittel = get_post_meta($args['id'], '_cpm_counter_mittel', true);
+    $counter_items = get_post_meta($args['id'], '_cpm_counter_items', true);
 
     $message = "<div class='counter-block' id='counter-block'>
-    <div class='counter-block__container flex'>
-        <div class='counter-block__container__inner counter-block__container__inner--projekte'>
-            <div class='counter-block__container__inner__content counter-block__container__inner__content--icon'><img src='" . site_url() . "/wp-content/plugins/custom-project-map/assets/img/icons_counter/icon-projekte.svg'></div>
+    <div class='counter-block__container flex'>";
 
-            <div class='counter-block__container__inner__content counter-block__container__inner__content--number h2' counterval = '" . $counter_projekte . "'>0</div>
-            <div class='counter-block__container__inner__content counter-block__container__inner__content--text'><p>Bewilligte Projekte</p></div>
-        </div>
-        <div class='counter-block__container__inner counter-block__container__inner--zuwendungen'>
-            <div class='counter-block__container__inner__content counter-block__container__inner__content--icon'><img src='" . site_url() . "/wp-content/plugins/custom-project-map/assets/img/icons_counter/icon-zuwendungen.svg'></div>
-            <div class='counter-block__container__inner__content counter-block__container__inner__content--number h2' counterval = '" . $counter_zuwendungen . "'>0</div>
-            <div class='counter-block__container__inner__content counter-block__container__inner__content--text'><p>Bewilligte Zuwendungen (in T€)</p></div>
-        </div>
-        <div class='counter-block__container__inner counter-block__container__inner--einwohnerinnen'>
-            <div class='counter-block__container__inner__content counter-block__container__inner__content--icon'><img src='" . site_url() . "/wp-content/plugins/custom-project-map/assets/img/icons_counter/icon-einwohnerinnen.svg'></div>
-            <div class='counter-block__container__inner__content counter-block__container__inner__content--number h2' counterval = '" . $counter_einwohnerinnen . "'>0</div>
-            <div class='counter-block__container__inner__content counter-block__container__inner__content--text'><p>Einwohnerinnen und Einwohner</p></div>
-        </div>
-        <div class='counter-block__container__inner counter-block__container__inner--mittel'>
-            <div class='counter-block__container__inner__content counter-block__container__inner__content--icon'>
-            <img src='" . site_url() . "/wp-content/plugins/custom-project-map/assets/img/icons_counter/icon-mittel.svg'></div>
-            <div class='counter-block__container__inner__content counter-block__container__inner__content--number h2' counterval = '" . $counter_mittel . "'>0</div>
-            <div class='counter-block__container__inner__content counter-block__container__inner__content--text'><p>Bereitgestellte Mittel Für den Strukturwandel (in T€)</p></div>
-        </div>
-    </div>
+    if ($counter_items) {
+        foreach ($counter_items as $counter_item) {
+            if ($counter_item['value'] && $counter_item['label'] && $counter_item['icon']) {
+                $message .= "<div class='counter-block__container__inner counter-block__container__inner--projekte'>
+                    <div class='counter-block__container__inner__content counter-block__container__inner__content--icon'><img src='" . $counter_item['icon'] . "'></div>
+        
+                    <div class='counter-block__container__inner__content counter-block__container__inner__content--number h2' counterval = '" . $counter_item['value'] . "'>0</div>
+                    <div class='counter-block__container__inner__content counter-block__container__inner__content--text'><p>" . $counter_item['label'] . "</p></div>
+                </div>";
+            }
+        }
+    }
+
+    $message .= "</div>
 </div>";
     $message .= "  <script> 
     document.addEventListener('scroll', counterAnimation);
@@ -405,7 +394,7 @@ function cpm_map_shortcode($attr)
         $display_posts_script .= "<p>Keine Beiträge</p>";
     endif;
     wp_reset_postdata();
-    $link_to_arrow = plugin_dir_url( __FILE__ ).'/assets/img/triangle.svg';
+    $link_to_arrow = plugin_dir_url(__FILE__) . '/assets/img/triangle.svg';
 
     $list_script = "<div id='project-list-container' class='project-list-container'>
     <div class='project-list-container__head'>
