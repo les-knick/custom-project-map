@@ -14,6 +14,7 @@ $custom_logo_id = get_theme_mod( 'custom_logo' );
 $logo = wp_get_attachment_image_src( $custom_logo_id , 'full' );
 $logo_url = esc_url($logo[0]);
 $home_url = get_home_url();
+$project_more_links = get_post_meta($project_id, '_cpm_project_links', true);
 
 $project_kosten = get_post_meta($project_id, '_cpm_project_kosten', true);
 $project_kosten = number_format($project_kosten, 0, ',', '.');
@@ -80,6 +81,17 @@ $display_posts_script .= "<div class='cmp__go-back' onclick='toggleActiveStateFr
 </div>
 <div class='project-content__container'>
 <h1 class='h3'>" . $project_title . "</h1>";
+if( $project_kosten ){
+    $display_posts_script .= "<p><span class='font-bold'>Gesamtkosten (vsl.): </span>" . $project_kosten . "€</p>";
+    }
+    if( $project_proj_time ){
+    $display_posts_script .= "<p><span class='font-bold'>Realisierungszeitraum (vsl.): </span>";
+        $display_posts_script .= $project_proj_time;
+        $display_posts_script .= "</p>";
+    }
+    if( $project_status ){
+    $display_posts_script .= "<p><span class='font-bold'>Status: </span>" . $project_status . "</p><br>";
+    } 
 if($project_facts){
     foreach ( $project_facts as $fact ) { 
         if ($fact['label'] && $fact['value']){
@@ -87,22 +99,20 @@ if($project_facts){
         }
     }
 }
-
-if( $project_kosten ){
-$display_posts_script .= "<p><span class='font-bold'>Gesamtkosten (vsl.): </span>" . $project_kosten . "€</p>";
-}
-if( $project_proj_time ){
-$display_posts_script .= "<p><span class='font-bold'>Realisierungszeitraum (vsl.): </span>";
-    $display_posts_script .= $project_proj_time;
-    $display_posts_script .= "</p>";
-}
-if( $project_status ){
-$display_posts_script .= "<p><span class='font-bold'>Status: </span>" . $project_status . "</p><br>";
-} 
 $display_posts_script .= "<p>" . $project_content . "</p>";
 if( $project_link ){
 $display_posts_script .= "<a class='project-content__container__more-link' href='" . $project_link . "'>Mehr Erfahren</a>";
 }
+
+if($project_more_links){
+    $display_posts_script .= "<br><br><h4>Weitere Projektlinks</h4><br>";
+    foreach ( $project_more_links as $more_link ) { 
+        if ($more_link['cpm_proj_link_url'] && $more_link['cpm_proj_link_description']){
+            $display_posts_script .= "<a href='" . $more_link['cpm_proj_link_url'] . "'>" . $more_link['cpm_proj_link_description'] . "</a><br>";
+        }
+    }
+}
+
 $display_posts_script .="</div>
 </div>
 </div>";

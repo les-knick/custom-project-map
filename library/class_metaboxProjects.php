@@ -117,25 +117,6 @@ class metaboxProjects
             delete_post_meta($post_id, '_cpm_project_facts', $old_info);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         // Link Repeater
         $old_links = get_post_meta($post_id, '_cpm_project_links', true);
         $new_links = array();
