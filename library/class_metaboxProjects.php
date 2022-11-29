@@ -84,8 +84,8 @@ class metaboxProjects
         $proj_time = sanitize_text_field($_POST['cpm_proj_time']);
         $status = sanitize_text_field($_POST['cpm_status']);
         $interne_id = sanitize_text_field($_POST['cpm_proj_interne_id']);
-        $projekttraeger = sanitize_text_field($_POST['cpm_proj_projekttraeger']);
-        $datenstand = sanitize_text_field($_POST['cpm_proj_datenstand']);
+        $projekttraeger = sanitize_text_field($_POST['cpm_project_projekttraeger']);
+        $datenstand = sanitize_text_field($_POST['cpm_project_datenstand']);
 
         // Update the meta field.
         update_post_meta($post_id, '_cpm_project_latitude', $latitude);
@@ -211,15 +211,15 @@ class metaboxProjects
         </label>
         <input type="text" id="cpm_status" name="cpm_status" value="<?php echo esc_attr($value_status); ?>" size="30" />
         <br><br>
-        <label for="cpm_projekttraeger">
+        <label for="cpm_project_projekttraeger">
             <?php _e('Projektträger', 'textdomain'); ?>
         </label>
-        <input type="text" id="cpm_projekttraeger" name="cpm_projekttraeger" value="<?php echo esc_attr($value_projekttraeger); ?>" size="30" />
+        <input type="text" id="cpm_project_projekttraeger" name="cpm_project_projekttraeger" value="<?php echo esc_attr($value_projekttraeger); ?>" size="30" />
         <br><br>
-        <label for="cpm_datenstand">
+        <label for="cpm_project_datenstand">
             <?php _e('Datenstand', 'textdomain'); ?>
         </label>
-        <input type="text" id="cpm_datenstand" name="cpm_datenstand" value="<?php echo esc_attr($value_datenstand); ?>" size="30" />
+        <input type="text" id="cpm_project_datenstand" name="cpm_project_datenstand" value="<?php echo esc_attr($value_datenstand); ?>" size="30" />
 
         <script>
             jQuery(document).ready(function($) {
