@@ -20,6 +20,8 @@ $project_kosten = get_post_meta($project_id, '_cpm_project_kosten', true);
 $project_kosten = number_format($project_kosten, 0, ',', '.');
 $project_proj_time = get_post_meta($project_id, '_cpm_project_proj_time', true);
 $project_status = get_post_meta($project_id, '_cpm_project_status', true);
+$project_projekttraeger = get_post_meta($project_id, '_cpm_project_projekttraeger', true);
+$project_datenstand = get_post_meta($project_id, '_cpm_project_datenstand', true);
 $project_facts = get_post_meta($project_id, '_cpm_project_facts', true);
 
 $content_post = get_post($project_id);
@@ -92,6 +94,12 @@ if( $project_kosten ){
     if( $project_status ){
     $display_posts_script .= "<p><span class='font-bold'>Status: </span>" . $project_status . "</p><br>";
     } 
+    if( $project_projekttraeger ){
+        $display_posts_script .= "<p><span class='font-bold'>Projektträger: </span>" . $project_projekttraeger . "</p><br>";
+        } 
+    if( $project_datenstand ){
+        $display_posts_script .= "<p><span class='font-bold'>Datenstand: </span>" . $project_datenstand . "</p><br>";
+         } 
 if($project_facts){
     foreach ( $project_facts as $fact ) { 
         if ($fact['label'] && $fact['value']){
@@ -116,4 +124,3 @@ if($project_more_links){
 $display_posts_script .="</div>
 </div>
 </div>";
-?>

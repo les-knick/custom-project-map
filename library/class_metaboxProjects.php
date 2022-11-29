@@ -84,6 +84,8 @@ class metaboxProjects
         $proj_time = sanitize_text_field($_POST['cpm_proj_time']);
         $status = sanitize_text_field($_POST['cpm_status']);
         $interne_id = sanitize_text_field($_POST['cpm_proj_interne_id']);
+        $projekttraeger = sanitize_text_field($_POST['cpm_proj_projekttraeger']);
+        $datenstand = sanitize_text_field($_POST['cpm_proj_datenstand']);
 
         // Update the meta field.
         update_post_meta($post_id, '_cpm_project_latitude', $latitude);
@@ -93,6 +95,8 @@ class metaboxProjects
         update_post_meta($post_id, '_cpm_project_proj_time', $proj_time);
         update_post_meta($post_id, '_cpm_project_status', $status);
         update_post_meta($post_id, '_cpm_project_interne_id', $interne_id);
+        update_post_meta($post_id, '_cpm_project_projekttraeger', $projekttraeger);
+        update_post_meta($post_id, '_cpm_project_datenstand', $datenstand);
 
         // Info Repeater
         $old_info = get_post_meta($post_id, '_cpm_project_facts', true);
@@ -160,6 +164,8 @@ class metaboxProjects
         $value_proj_time = get_post_meta($post->ID, '_cpm_project_proj_time', true);
         $value_status = get_post_meta($post->ID, '_cpm_project_status', true);
         $value_interne_id = get_post_meta($post->ID, '_cpm_project_interne_id', true);
+        $value_projekttraeger = get_post_meta($post->ID, '_cpm_project_projekttraeger', true);
+        $value_datenstand = get_post_meta($post->ID, '_cpm_project_datenstand', true);
 
         $repeatable_fields_information = get_post_meta($post->ID, '_cpm_project_facts', true);
         $repeatable_fields_links = get_post_meta($post->ID, '_cpm_project_links', true);
@@ -204,6 +210,16 @@ class metaboxProjects
             <?php _e('Status', 'textdomain'); ?>
         </label>
         <input type="text" id="cpm_status" name="cpm_status" value="<?php echo esc_attr($value_status); ?>" size="30" />
+        <br><br>
+        <label for="cpm_projekttraeger">
+            <?php _e('Projektträger', 'textdomain'); ?>
+        </label>
+        <input type="text" id="cpm_projekttraeger" name="cpm_projekttraeger" value="<?php echo esc_attr($value_projekttraeger); ?>" size="30" />
+        <br><br>
+        <label for="cpm_datenstand">
+            <?php _e('Datenstand', 'textdomain'); ?>
+        </label>
+        <input type="text" id="cpm_datenstand" name="cpm_datenstand" value="<?php echo esc_attr($value_datenstand); ?>" size="30" />
 
         <script>
             jQuery(document).ready(function($) {
