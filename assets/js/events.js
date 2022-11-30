@@ -111,6 +111,8 @@ function filterMarker() {
             marker.classList.add('marker--hidden');
         }
     });
+    deleteClusterMarkers()
+    clusterMarkers(map);
 }
 
 function toggleProjectList() {
@@ -131,7 +133,7 @@ function waitForMapLoadedToCluster(map) {
         window.setTimeout(waitForMapLoadedToCluster(map), 100);
     } else {
         clusterMarkers(map);
-        toggleMarkersOnZoom(map)
+        toggleMarkersOnZoom(map);
     }
 }
 
