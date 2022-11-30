@@ -177,6 +177,7 @@ function clusterMarkers(map) {
     clusterPoints[0] = document.createElement('div');
     clusterPoints[0].dataset.clusterid = clusterIndex;
     clusterPoints[0].classList.add('cluster-point');
+    clusterPoints[0].classList.add('cluster-point--hidden');
     mapContainer.appendChild(clusterPoints[0]);
     clusterIndex++;
 

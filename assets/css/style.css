@@ -552,6 +552,9 @@
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
   cursor: pointer;
 }
+.cluster-point.cluster-point--hidden {
+  display: none;
+}
 
 #map-container {
   /*  &.high-zoom {
